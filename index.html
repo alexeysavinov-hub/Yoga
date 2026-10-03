@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1C1A17">
 <title>BIONIX YOGA LAB — йога, вода и звук в Москве</title>
 <meta name="description" content="Центр йоги BIONIX YOGA LAB у м. Пражская: все направления йоги, 50-метровый бассейн с медитациями в воде и акустический велнес. Открытие: начало продаж со скидкой 50%.">
 <link rel="preload" as="image" href="assets/v5/hero-b.jpg" imagesrcset="assets/v5/hero-b-m.jpg 1200w, assets/v5/hero-b.jpg 2400w" imagesizes="100vw" fetchpriority="high">
@@ -16,6 +17,7 @@
 <link href="fonts/fonts.css" rel="stylesheet">
 <style>
 html{scroll-behavior:smooth}
+html{background:#1C1A17}
 body{margin:0;background:#F3EEE6;color:#1C1A17;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 *{box-sizing:border-box}
 html,body{overflow-x:clip;max-width:100%;overscroll-behavior-x:none}
@@ -47,7 +49,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 <div ref="{{ rootRef }}" style="position:relative;background:#F3EEE6">
 
 <!-- HEADER -->
-<header style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px;padding:0 clamp(20px,4vw,56px);color:#F3EEE6;transition:background .6s ease,border-color .6s ease;background:{{ hdrBg }};border-bottom:1px solid {{ hdrBd }};backdrop-filter:{{ hdrBlur }};-webkit-backdrop-filter:{{ hdrBlur }}">
+<header style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;box-sizing:border-box;height:calc(76px + env(safe-area-inset-top));padding:env(safe-area-inset-top) max(clamp(20px,4vw,56px),env(safe-area-inset-right)) 0 max(clamp(20px,4vw,56px),env(safe-area-inset-left));transform:translateZ(0);-webkit-transform:translateZ(0);will-change:transform;color:#F3EEE6;transition:background .6s ease,border-color .6s ease;background:{{ hdrBg }};border-bottom:1px solid {{ hdrBd }};backdrop-filter:{{ hdrBlur }};-webkit-backdrop-filter:{{ hdrBlur }}">
   <a href="#top" onClick="{{ logoClick }}" aria-label="BIONIX YOGA LAB — на главную" style="display:flex;flex-direction:column;align-items:center;gap:6px;color:#F3EEE6;flex:none">
     <span style="display:flex;align-items:center;font-family:Montserrat,sans-serif;font-weight:800;font-size:27px;line-height:1;letter-spacing:-.01em"><span style="display:inline-block;animation:{{ logoBI }}">BI</span><span style="position:relative;display:flex;flex:none;width:.74em;height:.74em;margin:0 .03em .1em;animation:{{ logoBreath }}"><span aria-hidden="true" style="position:absolute;inset:-35%;border-radius:50%;background:radial-gradient(closest-side,rgba(210,180,140,.55),rgba(210,180,140,0));pointer-events:none;animation:{{ logoGlow }}"></span><span aria-hidden="true" style="position:absolute;inset:-1px;border-radius:50%;border:1px solid #D2B48C;pointer-events:none;opacity:0;animation:{{ logoRing }}"></span><svg viewBox="0 0 44 44" aria-hidden="true" style="display:block;width:100%;height:100%;overflow:visible"><mask id="bxLeafH"><rect width="44" height="44" fill="#fff"></rect><path d="M13.5 30.5C24.3 35 30.9 23.8 30.5 11.5C18.2 12.5 7.85 20.3 13.5 30.5Z" fill="#000"></path><path d="M13.5 30.5L10.2 34.2" style="fill:none;stroke:#000;stroke-width:2.4;stroke-linecap:round"></path></mask><circle cx="22" cy="22" r="22" fill="#F3EEE6" mask="url(#bxLeafH)" style="transform-box:fill-box;transform-origin:center;animation:{{ logoGrow }}"></circle><path d="M14.5 29.4L29.2 13M20.3 22.9L24.8 22.7M20.3 22.9L20.1 18.4M24.6 18.2L28.3 18M24.6 18.2L24.4 14.5" style="fill:none;stroke:#F3EEE6;stroke-width:2;stroke-linecap:round;stroke-dasharray:44;stroke-dashoffset:0;animation:{{ logoDraw }}"></path></svg><sc-if value="{{ ringA }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position:absolute;inset:-1px;border-radius:50%;border:1px solid #D2B48C;pointer-events:none;animation:v5Ring 1.4s cubic-bezier(.2,.6,.2,1) both"></span><span aria-hidden="true" style="position:absolute;inset:-1px;border-radius:50%;border:1px solid #D2B48C;pointer-events:none;animation:v5Ring 1.4s cubic-bezier(.2,.6,.2,1) .22s both"></span></sc-if><sc-if value="{{ ringB }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position:absolute;inset:-1px;border-radius:50%;border:1px solid #D2B48C;pointer-events:none;animation:v5Ring 1.4s cubic-bezier(.2,.6,.2,1) both"></span><span aria-hidden="true" style="position:absolute;inset:-1px;border-radius:50%;border:1px solid #D2B48C;pointer-events:none;animation:v5Ring 1.4s cubic-bezier(.2,.6,.2,1) .22s both"></span></sc-if></span><span style="display:inline-block;animation:{{ logoNIX }}">NIX</span></span>
     <span style="display:flex;align-items:center;justify-content:space-between;align-self:stretch;font-family:Montserrat,sans-serif;font-weight:700;font-size:10px;line-height:1;letter-spacing:.38em;animation:{{ logoTag }}"><span>YOGA</span><span style="width:4px;height:4px;border-radius:50%;background:#D2B48C"></span><span style="margin-right:-.38em">LAB</span></span>
@@ -74,7 +76,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </header>
 
 <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-  <div style="position:fixed;inset:0;z-index:40;background:#1C1A17;color:#F3EEE6;padding:100px 28px 32px;display:flex;flex-direction:column;gap:14px;overflow:auto">
+  <div style="position:fixed;inset:0;z-index:40;background:#1C1A17;color:#F3EEE6;padding:calc(100px + env(safe-area-inset-top)) 28px calc(32px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px;overflow:auto;overscroll-behavior:contain">
     <a href="#practices" onClick="{{ closeMenu }}" style="color:#F3EEE6;font-family:Oswald;font-weight:300;font-size:38px;text-transform:uppercase;letter-spacing:.04em">Практики</a>
     <a href="#space" onClick="{{ closeMenu }}" style="color:#F3EEE6;font-family:Oswald;font-weight:300;font-size:38px;text-transform:uppercase;letter-spacing:.04em">Пространство</a>
     <a href="#schedule" onClick="{{ closeMenu }}" style="color:#F3EEE6;font-family:Oswald;font-weight:300;font-size:38px;text-transform:uppercase;letter-spacing:.04em">Расписание</a>
@@ -115,7 +117,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 
 <!-- OFFER -->
 <sc-if value="{{ offerOn }}" hint-placeholder-val="{{ true }}">
-<section id="opening" data-screen-label="01b Opening" style="background:#EDE6DB;color:#1C1A17;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px;overflow:hidden">
+<section id="opening" data-screen-label="01b Opening" style="background:#EDE6DB;color:#1C1A17;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:calc(76px + env(safe-area-inset-top));overflow:hidden">
   <div data-reveal style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(28px,6vw,104px);align-items:center">
     <div style="display:flex;flex-direction:column;gap:clamp(14px,2.4vw,32px);min-width:0">
       <div style="display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#6B6258"><span style="width:40px;height:1px;background:#7A5F3E"></span><span>Спецпредложение · Открытие</span></div>
@@ -176,7 +178,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 03 PILLARS -->
-<section id="about" data-screen-label="03 Pillars" style="background:#1C1A17;color:#F3EEE6;padding:clamp(52px,6vw,100px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="about" data-screen-label="03 Pillars" style="background:#1C1A17;color:#F3EEE6;padding:clamp(52px,6vw,100px) clamp(20px,4vw,56px);scroll-margin-top:calc(76px + env(safe-area-inset-top))">
   <div style="max-width:1400px;margin:0 auto">
     <div data-reveal style="display:flex;flex-direction:column;gap:clamp(12px,1.6vw,22px);max-width:{{ hIntroW }};margin-bottom:clamp(22px,3vw,48px)">
       <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:{{ hFsPillars }};line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em;white-space:nowrap">Три стихии - одна <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#D2B48C;letter-spacing:0">практика</em></h2>
@@ -206,7 +208,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 04 PRACTICES -->
-<section id="practices" data-screen-label="04 Practices" style="background:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="practices" data-screen-label="04 Practices" style="background:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:calc(76px + env(safe-area-inset-top))">
   <div style="max-width:1400px;margin:0 auto">
     <div data-reveal style="display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);max-width:{{ hIntroW }};margin-bottom:clamp(22px,4.5vw,64px)">
       <div style="display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#6B6258"><span style="width:40px;height:1px;background:#B9AC98"></span><span>Направления</span></div>
@@ -260,7 +262,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 05 SPACE -->
-<section id="space" data-screen-label="05 Space" style="background:#1C1A17;color:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="space" data-screen-label="05 Space" style="background:#1C1A17;color:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:calc(76px + env(safe-area-inset-top))">
   <div style="max-width:1400px;margin:0 auto">
     <div data-reveal style="display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);max-width:760px;margin-bottom:clamp(22px,4.5vw,64px)">
       <div style="display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B5AA9A"><span style="width:40px;height:1px;background:rgba(243,238,230,.35)"></span><span>Пространство</span></div>
@@ -289,7 +291,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 06 SCHEDULE -->
-<section id="schedule" data-screen-label="06 Schedule" style="background:#E8E0D3;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="schedule" data-screen-label="06 Schedule" style="background:#E8E0D3;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:calc(76px + env(safe-area-inset-top))">
   <div style="max-width:1400px;margin:0 auto">
     <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 48px;margin-bottom:clamp(18px,3.5vw,44px)">
       <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(32px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Ваш <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">ритм</em> недели</h2>
@@ -319,7 +321,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 07 MASTERS -->
-<section id="masters" data-screen-label="07 Masters" style="background:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="masters" data-screen-label="07 Masters" style="background:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:calc(76px + env(safe-area-inset-top))">
   <div style="max-width:1400px;margin:0 auto">
     <div data-reveal style="display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);max-width:{{ hIntroW }};margin-bottom:clamp(22px,4.5vw,64px)">
       <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:{{ hFsMasters }};line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em;white-space:nowrap">Мастера, которые <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">видят</em> каждого</h2>
@@ -358,7 +360,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 09 PRICES -->
-<section id="prices" data-screen-label="09 Prices" style="background:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="prices" data-screen-label="09 Prices" style="background:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:calc(76px + env(safe-area-inset-top))">
   <div style="max-width:1400px;margin:0 auto">
     <div data-reveal style="display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);max-width:{{ hIntroW }};margin-bottom:clamp(22px,4.5vw,64px)">
       <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:{{ hFsLine }};line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em;white-space:{{ hWrapD }}">Карта для <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">вашей</em> практики</h2>
@@ -390,7 +392,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 10 SIGNUP -->
-<section id="signup" ref="{{ signupRef }}" data-screen-label="10 Signup" style="position:relative;color:#F3EEE6;background:#141210;overflow:hidden;scroll-margin-top:76px">
+<section id="signup" ref="{{ signupRef }}" data-screen-label="10 Signup" style="position:relative;color:#F3EEE6;background:#141210;overflow:hidden;scroll-margin-top:calc(76px + env(safe-area-inset-top))">
   <img src="assets/v5/cta.jpg" srcSet="assets/v5/cta-m.jpg 1000w, assets/v5/cta.jpg 2000w" sizes="100vw" loading="lazy" decoding="async" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center">
   <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,18,15,.94) 0%,rgba(20,18,15,.82) 48%,rgba(20,18,15,.5) 100%)"></div>
   <div style="position:relative;max-width:1400px;margin:0 auto;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(24px,6vw,96px);align-items:center">
@@ -524,7 +526,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 
 <!-- Mobile action bar -->
 <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
-  <div style="position:fixed;left:0;right:0;bottom:0;z-index:45;display:grid;grid-template-columns:1fr 1.4fr;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(28,26,23,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(243,238,230,.12);transform:{{ barT }};visibility:{{ barVis }};transition:{{ barTr }}">
+  <div style="position:fixed;left:0;right:0;bottom:0;z-index:45;transform:translateZ(0);-webkit-transform:translateZ(0);display:grid;grid-template-columns:1fr 1.4fr;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(28,26,23,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(243,238,230,.12);transform:{{ barT }};visibility:{{ barVis }};transition:{{ barTr }}">
     <a href="tel:+74951079774" style="display:flex;align-items:center;justify-content:center;height:52px;border-radius:999px;border:1px solid rgba(243,238,230,.4);color:#F3EEE6;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase">Позвонить</a>
     <a href="#signup" style="display:flex;align-items:center;justify-content:center;height:52px;border-radius:999px;background:#D2B48C;color:#1C1A17;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase">Записаться</a>
   </div>
