@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BIONIX YOGA LAB — йога, вода и звук в Москве</title>
 <meta name="description" content="Центр йоги BIONIX YOGA LAB у м. Пражская: все направления йоги, 50-метровый бассейн с медитациями в воде и акустический велнес. Открытие: начало продаж со скидкой 50%.">
+<link rel="preload" as="image" href="assets/v5/hero-b.jpg" imagesrcset="assets/v5/hero-b-m.jpg 1200w, assets/v5/hero-b.jpg 2400w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" href="fonts/fonts.css" as="style">
 <script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js"};</script>
 <script src="./support.js"></script>
 </head>
@@ -16,6 +18,8 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:#F3EEE6;color:#1C1A17;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 *{box-sizing:border-box}
+html,body{overflow-x:clip;max-width:100%;overscroll-behavior-x:none}
+@supports not (overflow:clip){html,body{overflow-x:hidden}}
 a{color:#7A5F3E;text-decoration:none}
 a:hover{color:#1C1A17}
 input,button{font-family:inherit}
@@ -26,6 +30,11 @@ input::placeholder{color:rgba(243,238,230,.4)}
 @keyframes v5Spin{to{transform:rotate(360deg)}}
 @keyframes v5Halo{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
 @keyframes v5Breath{0%,100%{transform:scale(.94);opacity:.85}50%{transform:scale(1.06);opacity:1}}
+@keyframes v5Pranayama{0%{transform:scale(.95);opacity:.88}33%{transform:scale(1.06);opacity:1}50%{transform:scale(1.06);opacity:1}100%{transform:scale(.95);opacity:.88}}
+@keyframes v5LogoGrow{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes v5LogoDraw{from{stroke-dashoffset:44}to{stroke-dashoffset:0}}
+@keyframes v5LogoIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes v5Ring{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.9);opacity:0}}
 @keyframes v5Line{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}html{scroll-behavior:auto}}
 </style>
@@ -35,9 +44,9 @@ input::placeholder{color:rgba(243,238,230,.4)}
 
 <!-- HEADER -->
 <header style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px;padding:0 clamp(20px,4vw,56px);color:#F3EEE6;transition:background .6s ease,border-color .6s ease;background:{{ hdrBg }};border-bottom:1px solid {{ hdrBd }};backdrop-filter:{{ hdrBlur }};-webkit-backdrop-filter:{{ hdrBlur }}">
-  <a href="#top" aria-label="BIONIX YOGA LAB — на главную" style="display:flex;flex-direction:column;align-items:center;gap:6px;color:#F3EEE6;flex:none">
-    <span style="display:flex;align-items:center;font-family:Montserrat,sans-serif;font-weight:800;font-size:27px;line-height:1;letter-spacing:-.01em"><span>BI</span><svg viewBox="0 0 44 44" aria-hidden="true" style="display:block;flex:none;width:.74em;height:.74em;margin:0 .03em .1em"><mask id="bxLeafH"><rect width="44" height="44" fill="#fff"></rect><path d="M13.5 30.5C24.3 35 30.9 23.8 30.5 11.5C18.2 12.5 7.85 20.3 13.5 30.5Z" fill="#000"></path><path d="M13.5 30.5L10.2 34.2" style="fill:none;stroke:#000;stroke-width:2.4;stroke-linecap:round"></path></mask><circle cx="22" cy="22" r="22" fill="#F3EEE6" mask="url(#bxLeafH)"></circle><path d="M14.5 29.4L29.2 13M20.3 22.9L24.8 22.7M20.3 22.9L20.1 18.4M24.6 18.2L28.3 18M24.6 18.2L24.4 14.5" style="fill:none;stroke:#F3EEE6;stroke-width:2;stroke-linecap:round"></path></svg><span>NIX</span></span>
-    <span style="display:flex;align-items:center;justify-content:space-between;align-self:stretch;font-family:Montserrat,sans-serif;font-weight:700;font-size:10px;line-height:1;letter-spacing:.38em"><span>YOGA</span><span style="width:4px;height:4px;border-radius:50%;background:#D2B48C"></span><span style="margin-right:-.38em">LAB</span></span>
+  <a href="#top" onClick="{{ logoClick }}" aria-label="BIONIX YOGA LAB — на главную" style="display:flex;flex-direction:column;align-items:center;gap:6px;color:#F3EEE6;flex:none">
+    <span style="display:flex;align-items:center;font-family:Montserrat,sans-serif;font-weight:800;font-size:27px;line-height:1;letter-spacing:-.01em"><span style="display:inline-block;animation:{{ logoBI }}">BI</span><span style="position:relative;display:flex;flex:none;width:.74em;height:.74em;margin:0 .03em .1em;animation:{{ logoBreath }}"><svg viewBox="0 0 44 44" aria-hidden="true" style="display:block;width:100%;height:100%;overflow:visible"><mask id="bxLeafH"><rect width="44" height="44" fill="#fff"></rect><path d="M13.5 30.5C24.3 35 30.9 23.8 30.5 11.5C18.2 12.5 7.85 20.3 13.5 30.5Z" fill="#000"></path><path d="M13.5 30.5L10.2 34.2" style="fill:none;stroke:#000;stroke-width:2.4;stroke-linecap:round"></path></mask><circle cx="22" cy="22" r="22" fill="#F3EEE6" mask="url(#bxLeafH)" style="transform-box:fill-box;transform-origin:center;animation:{{ logoGrow }}"></circle><path d="M14.5 29.4L29.2 13M20.3 22.9L24.8 22.7M20.3 22.9L20.1 18.4M24.6 18.2L28.3 18M24.6 18.2L24.4 14.5" style="fill:none;stroke:#F3EEE6;stroke-width:2;stroke-linecap:round;stroke-dasharray:44;stroke-dashoffset:0;animation:{{ logoDraw }}"></path></svg><sc-if value="{{ ringA }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position:absolute;inset:-1px;border-radius:50%;border:1px solid #D2B48C;pointer-events:none;animation:v5Ring 1.4s cubic-bezier(.2,.6,.2,1) both"></span><span aria-hidden="true" style="position:absolute;inset:-1px;border-radius:50%;border:1px solid #D2B48C;pointer-events:none;animation:v5Ring 1.4s cubic-bezier(.2,.6,.2,1) .22s both"></span></sc-if><sc-if value="{{ ringB }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position:absolute;inset:-1px;border-radius:50%;border:1px solid #D2B48C;pointer-events:none;animation:v5Ring 1.4s cubic-bezier(.2,.6,.2,1) both"></span><span aria-hidden="true" style="position:absolute;inset:-1px;border-radius:50%;border:1px solid #D2B48C;pointer-events:none;animation:v5Ring 1.4s cubic-bezier(.2,.6,.2,1) .22s both"></span></sc-if></span><span style="display:inline-block;animation:{{ logoNIX }}">NIX</span></span>
+    <span style="display:flex;align-items:center;justify-content:space-between;align-self:stretch;font-family:Montserrat,sans-serif;font-weight:700;font-size:10px;line-height:1;letter-spacing:.38em;animation:{{ logoTag }}"><span>YOGA</span><span style="width:4px;height:4px;border-radius:50%;background:#D2B48C"></span><span style="margin-right:-.38em">LAB</span></span>
   </a>
   <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
     <nav style="display:flex;gap:26px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap">
@@ -78,10 +87,10 @@ input::placeholder{color:rgba(243,238,230,.4)}
 <!-- 01 HERO -->
 <section id="top" ref="{{ heroRef }}" data-screen-label="01 Hero" style="position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#F3EEE6;background:#141210;overflow:hidden">
   <span ref="{{ topRef }}" aria-hidden="true" style="position:absolute;top:0;left:0;width:1px;height:64px;pointer-events:none"></span>
-  <sc-if value="{{ heroB }}" hint-placeholder-val="{{ true }}"><img src="assets/v5/hero-b.jpg" alt="Гонг-медитация в звуковом зале BIONIX YOGA LAB: группа на подушках, мастер у гонгов" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;transform-origin:center 30%;animation:{{ heroAnim }}"></sc-if>
-  <sc-if value="{{ heroA }}" hint-placeholder-val="{{ false }}"><img src="assets/v5/hero-a.jpg" alt="Гонг-медитация в звуковом зале BIONIX YOGA LAB: мастер у гонга, группа в полукруге" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;transform-origin:center 30%;animation:{{ heroAnim }}"></sc-if>
-  <sc-if value="{{ heroDawn }}" hint-placeholder-val="{{ false }}"><img src="assets/v5/hero.jpg" alt="Зал BIONIX YOGA LAB на рассвете: мягкий свет, практикующая в медитации" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;transform-origin:center;animation:{{ heroAnim }}"></sc-if>
-  <sc-if value="{{ heroLive }}" hint-placeholder-val="{{ false }}"><video ref="{{ heroVideoRef }}" src="assets/v5/hero-loop.mp4" poster="assets/v5/hero-b.jpg" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" autoPlay="{{ true }}" preload="auto" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;transition:opacity 1.8s ease;opacity:{{ heroVideoO }}"></video></sc-if>
+  <sc-if value="{{ heroB }}" hint-placeholder-val="{{ true }}"><img src="assets/v5/hero-b.jpg" srcSet="assets/v5/hero-b-m.jpg 1200w, assets/v5/hero-b.jpg 2400w" sizes="100vw" fetchPriority="high" decoding="async" alt="Гонг-медитация в звуковом зале BIONIX YOGA LAB: группа на подушках, мастер у гонгов" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;transform-origin:center 30%;animation:{{ heroAnim }}"></sc-if>
+  <sc-if value="{{ heroA }}" hint-placeholder-val="{{ false }}"><img src="assets/v5/hero-a.jpg" srcSet="assets/v5/hero-a-m.jpg 1200w, assets/v5/hero-a.jpg 2400w" sizes="100vw" fetchPriority="high" decoding="async" alt="Гонг-медитация в звуковом зале BIONIX YOGA LAB: мастер у гонга, группа в полукруге" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;transform-origin:center 30%;animation:{{ heroAnim }}"></sc-if>
+  <sc-if value="{{ heroDawn }}" hint-placeholder-val="{{ false }}"><img src="assets/v5/hero.jpg" srcSet="assets/v5/hero-m.jpg 1200w, assets/v5/hero.jpg 2400w" sizes="100vw" fetchPriority="high" decoding="async" alt="Зал BIONIX YOGA LAB на рассвете: мягкий свет, практикующая в медитации" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;transform-origin:center;animation:{{ heroAnim }}"></sc-if>
+  <sc-if value="{{ heroLive }}" hint-placeholder-val="{{ false }}"><div ref="{{ heroVideoRef }}" aria-hidden="true" style="position:absolute;inset:0;transition:opacity 1.8s ease;opacity:{{ heroVideoO }}"></div></sc-if>
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,15,.5) 0%,rgba(20,18,15,.22) 34%,rgba(20,18,15,.55) 66%,rgba(20,18,15,.94) 100%)"></div>
   <div style="position:relative;width:100%;max-width:1400px;margin:0 auto;padding:150px clamp(20px,4vw,56px) clamp(40px,6vh,76px);display:flex;flex-direction:column;gap:clamp(24px,3.2vh,40px)">
     <div style="display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#E7DCCB">
@@ -102,13 +111,13 @@ input::placeholder{color:rgba(243,238,230,.4)}
 
 <!-- OFFER -->
 <sc-if value="{{ offerOn }}" hint-placeholder-val="{{ true }}">
-<section id="opening" data-screen-label="01b Opening" style="background:#EDE6DB;color:#1C1A17;padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px;overflow:hidden">
-  <div data-reveal style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(56px,6vw,104px);align-items:center">
-    <div style="display:flex;flex-direction:column;gap:clamp(22px,2.4vw,32px);min-width:0">
+<section id="opening" data-screen-label="01b Opening" style="background:#EDE6DB;color:#1C1A17;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px;overflow:hidden">
+  <div data-reveal style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(28px,6vw,104px);align-items:center">
+    <div style="display:flex;flex-direction:column;gap:clamp(14px,2.4vw,32px);min-width:0">
       <div style="display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#6B6258"><span style="width:40px;height:1px;background:#7A5F3E"></span><span>Спецпредложение · Открытие</span></div>
-      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(46px,6vw,96px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Центр йоги<br>BIONIX YOGA <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">lab</em></h2>
-      <p style="margin:0;font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-size:clamp(26px,2.4vw,36px);line-height:1.15;color:#7A5F3E">Начало продаж со скидкой 50%</p>
-      <p style="margin:0;max-width:46ch;font-size:17px;line-height:1.65;color:#4A443D;text-wrap:pretty">Станьте одним из первых гостей: йога, бассейн 50 м и акустический велнес в одном центре.</p>
+      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(36px,6vw,96px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Центр йоги<br>BIONIX YOGA <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">lab</em></h2>
+      <p style="margin:0;font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-size:clamp(22px,2.4vw,36px);line-height:1.15;color:#7A5F3E">Начало продаж со скидкой 50%</p>
+      <p style="margin:0;max-width:46ch;font-size:clamp(15px,3.9vw,17px);line-height:1.6;color:#4A443D;text-wrap:pretty">Станьте одним из первых гостей: йога, бассейн 50 м и акустический велнес в одном центре.</p>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
         <a href="#signup" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;height:58px;padding:0 36px;border-radius:999px;background:#1C1A17;color:#F3EEE6;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;transition:background .4s ease" style-hover="background:#7A5F3E;color:#F3EEE6">Получить скидку 50% <span aria-hidden="true">→</span></a>
         <a href="tel:+74951079774" style="display:inline-flex;align-items:center;justify-content:center;height:58px;padding:0 34px;border-radius:999px;border:1px solid #1C1A17;color:#1C1A17;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;transition:background .4s ease,color .4s ease" style-hover="background:#1C1A17;color:#F3EEE6">Позвонить</a>
@@ -117,9 +126,9 @@ input::placeholder{color:rgba(243,238,230,.4)}
     </div>
     <div style="position:relative;min-width:0;padding:0 0 clamp(36px,4vw,56px) clamp(36px,4vw,64px)">
       <div aria-hidden="true" style="position:absolute;inset:-6% -4% 2% 2%;border-radius:40px;background:radial-gradient(closest-side,rgba(214,140,70,.55),rgba(210,180,140,.28) 55%,rgba(237,230,219,0));filter:blur(36px);animation:{{ haloAnim }}"></div>
-      <div style="position:relative;width:100%;aspect-ratio:16/11;min-height:260px;overflow:hidden;border-radius:4px;background:#2A2621;box-shadow:0 30px 70px -30px rgba(122,95,62,.55)">
-        <sc-if value="{{ openingEve }}" hint-placeholder-val="{{ true }}"><img src="assets/v5/opening.jpg" loading="lazy" alt="Открытие звукового зала BIONIX YOGA LAB: гости на подушках, мастер у гонга, свечи вдоль сцены" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center"></sc-if>
-        <sc-if value="{{ openingDay }}" hint-placeholder-val="{{ false }}"><img src="assets/v5/opening-b.jpg" loading="lazy" alt="Открытие звукового зала BIONIX YOGA LAB: презентация пространства гостям" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center"></sc-if>
+      <div style="position:relative;width:100%;aspect-ratio:16/11;min-height:200px;overflow:hidden;border-radius:4px;background:#2A2621;box-shadow:0 30px 70px -30px rgba(122,95,62,.55)">
+        <sc-if value="{{ openingEve }}" hint-placeholder-val="{{ true }}"><img src="assets/v5/opening.jpg" srcSet="assets/v5/opening-m.jpg 960w, assets/v5/opening.jpg 1920w" sizes="(max-width: 1023px) 100vw, 45vw" loading="lazy" decoding="async" alt="Открытие звукового зала BIONIX YOGA LAB: гости на подушках, мастер у гонга, свечи вдоль сцены" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center"></sc-if>
+        <sc-if value="{{ openingDay }}" hint-placeholder-val="{{ false }}"><img src="assets/v5/opening-b.jpg" srcSet="assets/v5/opening-b-m.jpg 960w, assets/v5/opening-b.jpg 1920w" sizes="(max-width: 1023px) 100vw, 45vw" loading="lazy" decoding="async" alt="Открытие звукового зала BIONIX YOGA LAB: презентация пространства гостям" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center"></sc-if>
       </div>
       <div role="img" aria-label="Скидка 50% на открытие" style="position:absolute;left:0;bottom:0;width:clamp(164px,16.5vw,248px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#2A2621 0 84%,#0F0E0C 91%,#2E2A24 97%,#1C1A17 100%);box-shadow:0 22px 44px -14px rgba(28,26,23,.65),inset 0 2px 3px rgba(243,238,230,.12);display:flex;align-items:center;justify-content:center">
         <div aria-hidden="true" style="position:absolute;inset:8%;border-radius:50%;background:repeating-radial-gradient(circle,rgba(255,240,210,0) 0 2px,rgba(90,60,25,.09) 2px 3px),radial-gradient(circle at 36% 30%,#F3DDAE 0%,#D9B97F 26%,#B88D52 60%,#8A6435 100%);box-shadow:inset 0 0 0 1px rgba(255,235,200,.35),inset 0 -12px 26px rgba(60,38,15,.45),inset 0 8px 18px rgba(255,240,210,.35)"></div>
@@ -134,62 +143,63 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </sc-if>
 
 <!-- 02 MANIFESTO -->
-<section data-screen-label="02 Manifesto" style="background:#F3EEE6;padding:clamp(88px,11vw,170px) clamp(20px,4vw,56px)">
-  <div data-reveal style="max-width:980px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(28px,3.4vw,44px)">
-    <svg viewBox="0 0 44 44" aria-hidden="true" style="display:block;width:72px;height:72px;animation:v5Breath 7s ease-in-out infinite"><mask id="bxLeafM"><rect width="44" height="44" fill="#fff"></rect><path d="M13.5 30.5C24.3 35 30.9 23.8 30.5 11.5C18.2 12.5 7.85 20.3 13.5 30.5Z" fill="#000"></path><path d="M13.5 30.5L10.2 34.2" style="fill:none;stroke:#000;stroke-width:2.4;stroke-linecap:round"></path></mask><circle cx="22" cy="22" r="22" fill="#7A5F3E" mask="url(#bxLeafM)"></circle><path d="M14.5 29.4L29.2 13M20.3 22.9L24.8 22.7M20.3 22.9L20.1 18.4M24.6 18.2L28.3 18M24.6 18.2L24.4 14.5" style="fill:none;stroke:#7A5F3E;stroke-width:2;stroke-linecap:round"></path></svg>
-    <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(36px,5vw,80px);line-height:1;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Не нужно быть гибким.<br>Нужно просто <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">прийти</em>.</h2>
+<section data-screen-label="02 Manifesto" style="background:#F3EEE6;padding:clamp(56px,11vw,170px) clamp(20px,4vw,56px)">
+  <div data-reveal style="max-width:980px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(18px,3.4vw,44px)">
+    <svg viewBox="0 0 44 44" aria-hidden="true" style="display:block;width:72px;height:72px;animation:v5Pranayama 12s cubic-bezier(.45,0,.3,1) infinite 1.6s"><mask id="bxLeafM"><rect width="44" height="44" fill="#fff"></rect><path d="M13.5 30.5C24.3 35 30.9 23.8 30.5 11.5C18.2 12.5 7.85 20.3 13.5 30.5Z" fill="#000"></path><path d="M13.5 30.5L10.2 34.2" style="fill:none;stroke:#000;stroke-width:2.4;stroke-linecap:round"></path></mask><circle cx="22" cy="22" r="22" fill="#7A5F3E" mask="url(#bxLeafM)"></circle><path d="M14.5 29.4L29.2 13M20.3 22.9L24.8 22.7M20.3 22.9L20.1 18.4M24.6 18.2L28.3 18M24.6 18.2L24.4 14.5" style="fill:none;stroke:#7A5F3E;stroke-width:2;stroke-linecap:round"></path></svg>
+    <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(30px,5vw,80px);line-height:1;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Не нужно быть гибким.<br>Нужно просто <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">прийти</em>.</h2>
     <p style="margin:0;max-width:60ch;font-size:clamp(17px,1.35vw,20px);line-height:1.65;color:#4A443D;text-wrap:pretty">Йога — это не поза на фотографии, а внимание к себе. Поэтому мы не обещаем результат за тридцать дней. У нас есть тишина, время и мастера, которые видят каждого в группе до двенадцати человек.</p>
     <div style="width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));justify-items:center;gap:12px clamp(16px,3vw,48px);border-top:1px solid #D8CDBD;padding-top:8px">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:24px;text-align:center;text-wrap:balance"><span style="font-family:Oswald;font-weight:300;font-size:40px;line-height:1">4</span><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6B6258">зала с панорамными окнами</span></div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:24px;text-align:center;text-wrap:balance"><span style="font-family:Oswald;font-weight:300;font-size:40px;line-height:1">60+</span><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6B6258">занятий в неделю</span></div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:24px;text-align:center;text-wrap:balance"><span style="font-family:Oswald;font-weight:300;font-size:40px;line-height:1">12</span><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6B6258">человек максимум в группе</span></div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:24px;text-align:center;text-wrap:balance"><span style="font-family:Oswald;font-weight:300;font-size:40px;line-height:1">07–23</span><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6B6258">открыты ежедневно</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:clamp(14px,2vw,24px);text-align:center;text-wrap:balance"><span style="font-family:Oswald;font-weight:300;font-size:clamp(32px,3vw,40px);line-height:1">4</span><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6B6258">зала с панорамными окнами</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:clamp(14px,2vw,24px);text-align:center;text-wrap:balance"><span style="font-family:Oswald;font-weight:300;font-size:clamp(32px,3vw,40px);line-height:1">60+</span><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6B6258">занятий в неделю</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:clamp(14px,2vw,24px);text-align:center;text-wrap:balance"><span style="font-family:Oswald;font-weight:300;font-size:clamp(32px,3vw,40px);line-height:1">12</span><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6B6258">человек максимум в группе</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:clamp(14px,2vw,24px);text-align:center;text-wrap:balance"><span style="font-family:Oswald;font-weight:300;font-size:clamp(32px,3vw,40px);line-height:1">07–23</span><span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6B6258">открыты ежедневно</span></div>
     </div>
   </div>
 </section>
 
 <!-- 03 PILLARS -->
-<section id="about" data-screen-label="03 Pillars" style="background:#1C1A17;color:#F3EEE6;padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="about" data-screen-label="03 Pillars" style="background:#1C1A17;color:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
   <div style="max-width:1400px;margin:0 auto">
-    <div data-reveal style="display:flex;flex-direction:column;gap:22px;max-width:760px;margin-bottom:clamp(44px,5.5vw,80px)">
-      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(40px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Три стихии —<br>одна <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#D2B48C;letter-spacing:0">практика</em></h2>
-      <p style="margin:0;max-width:60ch;font-size:17px;line-height:1.65;color:#CFC5B6;text-wrap:pretty">Крупнейший холистический центр на юге Москвы: более 1500 м², где классическая йога встречается с водой и звуком. Семь вещей, которых больше нет нигде, отмечены точкой.</p>
+    <div data-reveal style="display:flex;flex-direction:column;gap:clamp(12px,1.6vw,22px);max-width:760px;margin-bottom:clamp(22px,5.5vw,80px)">
+      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(32px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Три стихии —<br>одна <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#D2B48C;letter-spacing:0">практика</em></h2>
+      <p style="margin:0;max-width:60ch;font-size:clamp(15px,3.9vw,17px);line-height:1.6;color:#CFC5B6;text-wrap:pretty">Крупнейший холистический центр на юге Москвы: более 1500 м², где классическая йога встречается с водой и звуком. Семь вещей, которых больше нет нигде, отмечены точкой.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(24px,3vw,44px) clamp(20px,2.5vw,36px)">
+    <div style="display:{{ msD }};grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(16px,3vw,44px) clamp(16px,2.5vw,36px);overflow-x:{{ msOx }};scroll-padding-left:{{ prPl }};scroll-snap-type:{{ msSnap }};margin:{{ msM }};padding:{{ msP }};scrollbar-width:none">
       <sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ pillars }}" as="pl">
-        <div data-reveal style="display:flex;flex-direction:column;gap:22px">
-          <div style="position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:4px;background:#2A2621"><sc-if value="{{ pl.img }}" hint-placeholder-val="{{ false }}"><img src="{{ pl.img }}" loading="lazy" alt="{{ pl.alt }}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></sc-if></div>
+        <div data-reveal style="display:flex;flex-direction:column;gap:clamp(14px,1.8vw,22px);flex:{{ plFlex }};max-width:{{ msMaxW }};min-width:0;scroll-snap-align:start;scroll-snap-stop:always">
+          <div style="position:relative;aspect-ratio:{{ pillarAspect }};overflow:hidden;border-radius:4px;background:#2A2621"><sc-if value="{{ pl.img }}" hint-placeholder-val="{{ false }}"><img src="{{ pl.img }}" srcSet="{{ pl.srcset }}" sizes="(max-width: 1023px) 80vw, 30vw" loading="lazy" decoding="async" alt="{{ pl.alt }}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></sc-if></div>
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(243,238,230,.25);padding-bottom:14px">
             <span style="font-family:Oswald;font-weight:300;font-size:clamp(30px,2.6vw,40px);line-height:1;text-transform:uppercase;letter-spacing:.06em">{{ pl.title }}</span>
             <span style="font-family:'Cormorant Garamond';font-style:italic;font-size:22px;line-height:1;color:#D2B48C">{{ pl.mood }}</span>
           </div>
           <div style="display:flex;flex-direction:column">
             <sc-for list="{{ pl.rows }}" as="r" hint-placeholder-count="3">
-              <div style="display:grid;grid-template-columns:14px minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid rgba(243,238,230,.12)">
+              <div style="display:grid;grid-template-columns:14px minmax(0,1fr);gap:12px;padding:clamp(9px,1.2vw,14px) 0;border-bottom:1px solid rgba(243,238,230,.12)">
                 <span aria-hidden="true" style="width:7px;height:7px;margin-top:7px;border-radius:50%;background:{{ r.dot }};border:1px solid {{ r.ring }}"></span>
-                <div style="display:flex;flex-direction:column;gap:4px"><span style="font-weight:500;font-size:16px;line-height:1.4">{{ r.t }}</span><span style="font-size:14px;line-height:1.55;color:#B5AA9A;text-wrap:pretty">{{ r.d }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:4px"><span style="font-weight:500;font-size:16px;line-height:1.4">{{ r.t }}</span><span style="font-size:clamp(13px,1vw,14px);line-height:1.5;color:#B5AA9A;text-wrap:pretty">{{ r.d }}</span></div>
               </div>
             </sc-for>
           </div>
         </div>
       </sc-for></sc-if>
     </div>
+    <sc-if value="{{ msHint }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;gap:12px;margin-top:18px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#B5AA9A"><span style="width:28px;height:1px;background:#D2B48C"></span><span>Листайте</span><span aria-hidden="true">→</span></div></sc-if>
   </div>
 </section>
 
 <!-- 04 PRACTICES -->
-<section id="practices" data-screen-label="04 Practices" style="background:#F3EEE6;padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="practices" data-screen-label="04 Practices" style="background:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
   <div style="max-width:1400px;margin:0 auto">
-    <div data-reveal style="display:flex;flex-direction:column;gap:20px;max-width:760px;margin-bottom:clamp(36px,4.5vw,64px)">
+    <div data-reveal style="display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);max-width:760px;margin-bottom:clamp(22px,4.5vw,64px)">
       <div style="display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#6B6258"><span style="width:40px;height:1px;background:#B9AC98"></span><span>Направления</span></div>
-      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(40px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Практика под <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">ваш темп</em></h2>
-      <p style="margin:0;max-width:60ch;font-size:17px;line-height:1.65;color:#4A443D;text-wrap:pretty">Шесть направлений — от спокойной хатхи до медитаций в воде и звуке. Занятия, с которых удобно начинать, отмечены «для первого раза».</p>
+      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(32px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Практика под <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">ваш темп</em></h2>
+      <p style="margin:0;max-width:60ch;font-size:clamp(15px,3.9vw,17px);line-height:1.6;color:#4A443D;text-wrap:pretty">Шесть направлений — от спокойной хатхи до медитаций в воде и звуке. Занятия, с которых удобно начинать, отмечены «для первого раза».</p>
     </div>
     <sc-if value="{{ prPanels }}" hint-placeholder-val="{{ true }}">
       <div data-reveal style="display:flex;gap:6px;height:clamp(520px,74vh,780px)">
         <sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ practices }}" as="p">
           <div onPointerEnter="{{ p.enter }}" onClick="{{ p.enter }}" style="position:relative;flex:{{ p.flex }};min-width:0;overflow:hidden;border-radius:4px;background:#1C1A17;color:#F3EEE6;cursor:pointer;transition:flex .9s cubic-bezier(.2,.7,.2,1)">
-            <sc-if value="{{ p.img }}" hint-placeholder-val="{{ false }}"><img src="{{ p.img }}" loading="lazy" alt="{{ p.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.2,.7,.2,1);transform:{{ p.imgT }}"></sc-if>
+            <sc-if value="{{ p.img }}" hint-placeholder-val="{{ false }}"><img src="{{ p.img }}" srcSet="{{ p.srcset }}" sizes="(max-width: 1023px) 80vw, 40vw" loading="lazy" decoding="async" alt="{{ p.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.2,.7,.2,1);transform:{{ p.imgT }}"></sc-if>
             <div style="position:absolute;inset:0;background:#1C1A17;transition:opacity .9s ease;opacity:{{ p.dimO }}"></div>
             <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,15,.05) 35%,rgba(20,18,15,.9) 100%)"></div>
             <div style="position:absolute;left:0;right:0;top:26px;display:flex;flex-direction:column;align-items:center;gap:20px;transition:opacity .4s ease;opacity:{{ p.colO }}">
@@ -213,7 +223,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
       <div data-reveal style="display:{{ prD }};grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:{{ prGap }};overflow-x:{{ prOx }};overflow-y:hidden;scroll-padding-left:{{ prPl }};scroll-snap-type:{{ prSnap }};margin:{{ prM }};padding-left:{{ prPl }};padding-right:{{ prPl }};scrollbar-width:none">
         <sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ practices }}" as="p">
           <a href="#signup" onClick="{{ p.book }}" style="position:relative;display:block;flex:{{ prFlex }};max-width:{{ prMaxW }};scroll-snap-align:start;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:#1C1A17;color:#F3EEE6">
-            <sc-if value="{{ p.img }}" hint-placeholder-val="{{ false }}"><img src="{{ p.img }}" loading="lazy" alt="{{ p.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
+            <sc-if value="{{ p.img }}" hint-placeholder-val="{{ false }}"><img src="{{ p.img }}" srcSet="{{ p.srcset }}" sizes="(max-width: 1023px) 80vw, 40vw" loading="lazy" decoding="async" alt="{{ p.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
             <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,15,.42) 0%,rgba(20,18,15,.06) 32%,rgba(20,18,15,.9) 100%)"></div>
             <div style="position:absolute;inset:0;padding:22px;display:flex;flex-direction:column;justify-content:space-between">
               <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font-family:Oswald;font-size:13px;letter-spacing:.2em;color:#D2B48C">{{ p.n }}</span><sc-if value="{{ p.first }}" hint-placeholder-val="{{ false }}"><span style="padding:6px 12px;border-radius:999px;border:1px solid rgba(210,180,140,.7);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#D2B48C">для первого раза</span></sc-if></div>
@@ -232,27 +242,27 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 05 SPACE -->
-<section id="space" data-screen-label="05 Space" style="background:#1C1A17;color:#F3EEE6;padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="space" data-screen-label="05 Space" style="background:#1C1A17;color:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
   <div style="max-width:1400px;margin:0 auto">
-    <div data-reveal style="display:flex;flex-direction:column;gap:20px;max-width:760px;margin-bottom:clamp(36px,4.5vw,64px)">
+    <div data-reveal style="display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);max-width:760px;margin-bottom:clamp(22px,4.5vw,64px)">
       <div style="display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#B5AA9A"><span style="width:40px;height:1px;background:rgba(243,238,230,.35)"></span><span>Пространство</span></div>
-      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(40px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Городской <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#D2B48C;letter-spacing:0">курорт</em></h2>
-      <p style="margin:0;max-width:60ch;font-size:17px;line-height:1.65;color:#CFC5B6;text-wrap:pretty">Четыре зоны на 1500 м², спроектированные по законам эргономики и эко-дизайна. Пять минут от метро Пражская, два часа бесплатной парковки.</p>
+      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(32px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Городской <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#D2B48C;letter-spacing:0">курорт</em></h2>
+      <p style="margin:0;max-width:60ch;font-size:clamp(15px,3.9vw,17px);line-height:1.6;color:#CFC5B6;text-wrap:pretty">Четыре зоны на 1500 м², спроектированные по законам эргономики и эко-дизайна. Пять минут от метро Пражская, два часа бесплатной парковки.</p>
     </div>
-    <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(28px,4vw,64px);align-items:start">
+    <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(18px,4vw,64px);align-items:start">
       <div style="display:flex;flex-direction:column;border-top:1px solid rgba(243,238,230,.25);order:{{ zListOrder }}">
         <sc-for list="{{ zones }}" as="z" hint-placeholder-count="4">
-          <button type="button" onClick="{{ z.pick }}" onPointerEnter="{{ z.pick }}" style="display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:16px;align-items:center;padding:22px 0;border:none;border-bottom:1px solid rgba(243,238,230,.12);background:transparent;text-align:left;cursor:pointer;transition:color .5s ease;color:{{ z.color }}">
+          <button type="button" onClick="{{ z.pick }}" onPointerEnter="{{ z.pick }}" style="display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:16px;align-items:center;padding:clamp(13px,1.6vw,22px) 0;border:none;border-bottom:1px solid rgba(243,238,230,.12);background:transparent;text-align:left;cursor:pointer;transition:color .5s ease;color:{{ z.color }}">
             <span style="font-family:Oswald;font-size:13px;letter-spacing:.1em;transition:color .5s ease;color:{{ z.numColor }}">{{ z.n }}</span>
-            <span style="font-family:Oswald;font-weight:300;font-size:clamp(24px,2.2vw,34px);line-height:1;text-transform:uppercase;letter-spacing:.03em">{{ z.name }}</span>
+            <span style="font-family:Oswald;font-weight:300;font-size:clamp(21px,2.2vw,34px);line-height:1;text-transform:uppercase;letter-spacing:.03em">{{ z.name }}</span>
             <span style="font-family:'Cormorant Garamond';font-style:italic;font-size:20px;line-height:1;color:#D2B48C;transition:opacity .5s ease;opacity:{{ z.on }}">{{ z.mood }}</span>
           </button>
         </sc-for>
-        <p style="margin:26px 0 0;min-height:5em;font-size:16px;line-height:1.6;color:#CFC5B6;text-wrap:pretty">{{ zoneText }}</p>
+        <p style="margin:clamp(14px,2vw,26px) 0 0;min-height:4.8em;font-size:clamp(15px,1.1vw,16px);line-height:1.6;color:#CFC5B6;text-wrap:pretty">{{ zoneText }}</p>
       </div>
-      <div onPointerEnter="{{ zHold }}" onPointerLeave="{{ zRelease }}" style="position:relative;width:100%;min-width:0;aspect-ratio:16/11;min-height:300px;overflow:hidden;border-radius:4px;background:#2A2621">
+      <div onPointerEnter="{{ zHold }}" onPointerLeave="{{ zRelease }}" style="position:relative;width:100%;min-width:0;aspect-ratio:16/11;min-height:clamp(200px,22vw,300px);overflow:hidden;border-radius:4px;background:#2A2621">
         <sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ zones }}" as="z">
-          <sc-if value="{{ z.img }}" hint-placeholder-val="{{ false }}"><img src="{{ z.img }}" loading="lazy" alt="{{ z.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1.1s ease,transform 7s linear;opacity:{{ z.on }};transform:{{ z.scale }}"></sc-if>
+          <sc-if value="{{ z.img }}" hint-placeholder-val="{{ false }}"><img src="{{ z.img }}" srcSet="{{ z.srcset }}" sizes="(max-width: 1023px) 100vw, 45vw" loading="lazy" decoding="async" alt="{{ z.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1.1s ease,transform 7s linear;opacity:{{ z.on }};transform:{{ z.scale }}"></sc-if>
         </sc-for></sc-if>
         <div style="position:absolute;left:0;right:0;bottom:0;padding:22px 24px;display:flex;justify-content:space-between;gap:16px;background:linear-gradient(180deg,rgba(20,18,15,0),rgba(20,18,15,.78));font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#E7DCCB"><span>{{ zoneCap }}</span><span style="color:#D2B48C">{{ zoneArea }}</span></div>
       </div>
@@ -261,10 +271,10 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 06 SCHEDULE -->
-<section id="schedule" data-screen-label="06 Schedule" style="background:#E8E0D3;padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="schedule" data-screen-label="06 Schedule" style="background:#E8E0D3;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
   <div style="max-width:1400px;margin:0 auto">
-    <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 48px;margin-bottom:clamp(28px,3.5vw,44px)">
-      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(40px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Ваш <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">ритм</em> недели</h2>
+    <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 48px;margin-bottom:clamp(18px,3.5vw,44px)">
+      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(32px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Ваш <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">ритм</em> недели</h2>
       <a href="{{ tgUrl }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding-bottom:6px;border-bottom:1px solid #1C1A17;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1C1A17;white-space:nowrap" style-hover="color:#7A5F3E;border-color:#7A5F3E">Полное расписание в Telegram <span aria-hidden="true">→</span></a>
     </div>
     <div data-reveal style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px">
@@ -275,7 +285,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
     </div>
     <div data-reveal style="border-top:1px solid #1C1A17">
       <sc-for list="{{ classes }}" as="c" hint-placeholder-count="5">
-        <div style="display:grid;grid-template-columns:{{ rowCols }};gap:12px 28px;align-items:center;padding:22px 0;border-bottom:1px solid #C9BEAE">
+        <div style="display:grid;grid-template-columns:{{ rowCols }};gap:8px 28px;align-items:center;padding:clamp(14px,1.6vw,22px) 0;border-bottom:1px solid #C9BEAE">
           <span style="font-family:Oswald;font-weight:300;line-height:1;font-size:{{ timeSize }}">{{ c.time }}</span>
           <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px"><span style="font-family:Oswald;font-weight:400;font-size:21px;line-height:1.1;text-transform:uppercase;letter-spacing:.02em">{{ c.name }}</span><sc-if value="{{ c.first }}" hint-placeholder-val="{{ false }}"><span style="padding:5px 10px;border-radius:999px;border:1px solid #D2B48C;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#7A5F3E">для первого раза</span></sc-if></div>
@@ -291,16 +301,16 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 07 MASTERS -->
-<section id="masters" data-screen-label="07 Masters" style="background:#F3EEE6;padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="masters" data-screen-label="07 Masters" style="background:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
   <div style="max-width:1400px;margin:0 auto">
-    <div data-reveal style="display:flex;flex-direction:column;gap:20px;max-width:760px;margin-bottom:clamp(36px,4.5vw,64px)">
-      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(40px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Мастера, которые <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">видят</em> каждого</h2>
-      <p style="margin:0;max-width:60ch;font-size:17px;line-height:1.65;color:#4A443D;text-wrap:pretty">Мастера центра преподают больше десяти лет и ведут группы до двенадцати человек. Внимания хватает каждому — и тому, кто пришёл впервые.</p>
+    <div data-reveal style="display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);max-width:760px;margin-bottom:clamp(22px,4.5vw,64px)">
+      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(32px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Мастера, которые <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">видят</em> каждого</h2>
+      <p style="margin:0;max-width:60ch;font-size:clamp(15px,3.9vw,17px);line-height:1.6;color:#4A443D;text-wrap:pretty">Мастера центра преподают больше десяти лет и ведут группы до двенадцати человек. Внимания хватает каждому — и тому, кто пришёл впервые.</p>
     </div>
     <div style="display:{{ msD }};grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(24px,3vw,40px) clamp(20px,2.5vw,36px);overflow-x:{{ msOx }};scroll-padding-left:{{ prPl }};scroll-snap-type:{{ msSnap }};margin:{{ msM }};padding:{{ msP }};scrollbar-width:none;-webkit-overflow-scrolling:touch">
       <sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ masters }}" as="m">
         <div data-reveal style="display:flex;flex-direction:column;gap:18px;flex:{{ msFlex }};max-width:{{ msMaxW }};min-width:0;scroll-snap-align:start;scroll-snap-stop:always">
-          <div style="aspect-ratio:4/5;overflow:hidden;border-radius:4px;background:#E8E0D3"><sc-if value="{{ m.img }}" hint-placeholder-val="{{ false }}"><img src="{{ m.img }}" loading="lazy" alt="{{ m.alt }}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></sc-if></div>
+          <div style="aspect-ratio:{{ cardAspect }};overflow:hidden;border-radius:4px;background:#E8E0D3"><sc-if value="{{ m.img }}" hint-placeholder-val="{{ false }}"><img src="{{ m.img }}" srcSet="{{ m.srcset }}" sizes="(max-width: 1023px) 78vw, 30vw" loading="lazy" decoding="async" alt="{{ m.alt }}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></sc-if></div>
           <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #1C1A17;padding-top:16px">
             <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-family:Oswald;font-weight:400;font-size:24px;line-height:1;text-transform:uppercase;letter-spacing:.02em">{{ m.name }}</span><span style="font-family:'Cormorant Garamond';font-style:italic;font-size:20px;line-height:1;color:#7A5F3E">{{ m.mood }}</span></div>
             <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6B6258">{{ m.dir }}</span>
@@ -314,7 +324,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 08 QUOTE -->
-<section data-screen-label="08 Quote" style="background:#1C1A17;color:#F3EEE6;padding:clamp(72px,9vw,130px) clamp(20px,4vw,56px)">
+<section data-screen-label="08 Quote" style="background:#1C1A17;color:#F3EEE6;padding:clamp(52px,9vw,130px) clamp(20px,4vw,56px)">
   <div data-reveal style="max-width:1000px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px">
     <span aria-hidden="true" style="font-family:'Cormorant Garamond';font-style:italic;font-size:88px;line-height:.5;color:#D2B48C">“</span>
     <div style="display:flex;flex-direction:column;align-items:center;gap:24px;transition:opacity .5s ease;opacity:{{ qO }}">
@@ -330,28 +340,28 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 09 PRICES -->
-<section id="prices" data-screen-label="09 Prices" style="background:#F3EEE6;padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
+<section id="prices" data-screen-label="09 Prices" style="background:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);scroll-margin-top:76px">
   <div style="max-width:1400px;margin:0 auto">
-    <div data-reveal style="display:flex;flex-direction:column;gap:20px;max-width:760px;margin-bottom:clamp(36px,4.5vw,64px)">
-      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(40px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Карта для <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">вашей</em> практики</h2>
-      <p style="margin:0;max-width:60ch;font-size:17px;line-height:1.65;color:#4A443D;text-wrap:pretty">Абонементы на йогу и флагманская карта «Энергия стихий» — доступ ко всему центру: йога, бассейн, звук и вечера живой музыки в дзен-лаундже.</p>
+    <div data-reveal style="display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);max-width:760px;margin-bottom:clamp(22px,4.5vw,64px)">
+      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(32px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Карта для <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">вашей</em> практики</h2>
+      <p style="margin:0;max-width:60ch;font-size:clamp(15px,3.9vw,17px);line-height:1.6;color:#4A443D;text-wrap:pretty">Абонементы на йогу и флагманская карта «Энергия стихий» — доступ ко всему центру: йога, бассейн, звук и вечера живой музыки в дзен-лаундже.</p>
     </div>
     <div style="display:{{ msD }};grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;align-items:stretch;overflow-x:{{ msOx }};scroll-padding-left:{{ prPl }};scroll-snap-type:{{ msSnap }};margin:{{ msM }};padding:{{ msP }};scrollbar-width:none;-webkit-overflow-scrolling:touch">
       <sc-for list="{{ plans }}" as="pl" hint-placeholder-count="3">
         <sc-if value="{{ pl.regular }}" hint-placeholder-val="{{ true }}">
-          <div data-reveal style="display:flex;flex-direction:column;gap:24px;padding:clamp(28px,3vw,40px);border-radius:4px;background:#E8E0D3;color:#1C1A17;flex:{{ plFlex }};max-width:{{ msMaxW }};min-width:0;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always">
+          <div data-reveal style="display:flex;flex-direction:column;gap:clamp(16px,2vw,24px);padding:clamp(22px,3vw,40px);border-radius:4px;background:#E8E0D3;color:#1C1A17;flex:{{ plFlex }};max-width:{{ msMaxW }};min-width:0;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always">
             <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#6B6258">{{ pl.note }}</span><span style="font-family:Oswald;font-weight:300;font-size:34px;line-height:1;text-transform:uppercase">{{ pl.name }}</span></div>
             <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:Oswald;font-weight:300;font-size:clamp(40px,3.6vw,56px);line-height:1">{{ pl.price }}</span><span style="font-size:14px;color:#6B6258">{{ pl.per }}</span></div>
-            <div style="display:flex;flex-direction:column;border-top:1px solid #1C1A17"><sc-for list="{{ pl.items }}" as="it" hint-placeholder-count="3"><span style="padding:12px 0;border-bottom:1px solid #C9BEAE;font-size:15px;line-height:1.5;color:#4A443D">{{ it }}</span></sc-for></div>
-            <a href="#signup" onClick="{{ pl.choose }}" style="margin-top:auto;display:inline-flex;align-items:center;justify-content:center;height:54px;border-radius:999px;border:1px solid #1C1A17;color:#1C1A17;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .3s ease,color .3s ease" style-hover="background:#1C1A17;color:#F3EEE6">{{ pl.cta }}</a>
+            <div style="display:flex;flex-direction:column;border-top:1px solid #1C1A17"><sc-for list="{{ pl.items }}" as="it" hint-placeholder-count="3"><span style="padding:clamp(8px,1vw,12px) 0;border-bottom:1px solid #C9BEAE;font-size:15px;line-height:1.5;color:#4A443D">{{ it }}</span></sc-for></div>
+            <a href="#signup" onClick="{{ pl.choose }}" style="margin-top:auto;display:inline-flex;align-items:center;justify-content:center;height:50px;border-radius:999px;border:1px solid #1C1A17;color:#1C1A17;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .3s ease,color .3s ease" style-hover="background:#1C1A17;color:#F3EEE6">{{ pl.cta }}</a>
           </div>
         </sc-if>
         <sc-if value="{{ pl.featured }}" hint-placeholder-val="{{ false }}">
-          <div data-reveal style="display:flex;flex-direction:column;gap:24px;padding:clamp(28px,3vw,40px);border-radius:4px;background:#1C1A17;color:#F3EEE6;flex:{{ plFlex }};max-width:{{ msMaxW }};min-width:0;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always">
+          <div data-reveal style="display:flex;flex-direction:column;gap:clamp(16px,2vw,24px);padding:clamp(22px,3vw,40px);border-radius:4px;background:#1C1A17;color:#F3EEE6;flex:{{ plFlex }};max-width:{{ msMaxW }};min-width:0;box-sizing:border-box;scroll-snap-align:start;scroll-snap-stop:always">
             <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#D2B48C">{{ pl.note }}</span><span style="font-family:Oswald;font-weight:300;font-size:34px;line-height:1;text-transform:uppercase">{{ pl.name }}</span></div>
             <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'Cormorant Garamond';font-style:italic;font-size:clamp(34px,3vw,46px);line-height:1;color:#D2B48C">{{ pl.price }}</span></div>
-            <div style="display:flex;flex-direction:column;border-top:1px solid rgba(243,238,230,.4)"><sc-for list="{{ pl.items }}" as="it" hint-placeholder-count="4"><span style="padding:12px 0;border-bottom:1px solid rgba(243,238,230,.14);font-size:15px;line-height:1.5;color:#E7DCCB">{{ it }}</span></sc-for></div>
-            <a href="#signup" onClick="{{ pl.choose }}" style="margin-top:auto;display:inline-flex;align-items:center;justify-content:center;height:54px;border-radius:999px;background:#D2B48C;color:#1C1A17;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .3s ease" style-hover="background:#F3EEE6;color:#1C1A17">{{ pl.cta }}</a>
+            <div style="display:flex;flex-direction:column;border-top:1px solid rgba(243,238,230,.4)"><sc-for list="{{ pl.items }}" as="it" hint-placeholder-count="4"><span style="padding:clamp(8px,1vw,12px) 0;border-bottom:1px solid rgba(243,238,230,.14);font-size:15px;line-height:1.5;color:#E7DCCB">{{ it }}</span></sc-for></div>
+            <a href="#signup" onClick="{{ pl.choose }}" style="margin-top:auto;display:inline-flex;align-items:center;justify-content:center;height:50px;border-radius:999px;background:#D2B48C;color:#1C1A17;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .3s ease" style-hover="background:#F3EEE6;color:#1C1A17">{{ pl.cta }}</a>
           </div>
         </sc-if>
       </sc-for>
@@ -363,29 +373,29 @@ input::placeholder{color:rgba(243,238,230,.4)}
 
 <!-- 10 SIGNUP -->
 <section id="signup" ref="{{ signupRef }}" data-screen-label="10 Signup" style="position:relative;color:#F3EEE6;background:#141210;overflow:hidden;scroll-margin-top:76px">
-  <img src="assets/v5/cta.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center">
+  <img src="assets/v5/cta.jpg" srcSet="assets/v5/cta-m.jpg 1000w, assets/v5/cta.jpg 2000w" sizes="100vw" loading="lazy" decoding="async" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center">
   <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,18,15,.94) 0%,rgba(20,18,15,.82) 48%,rgba(20,18,15,.5) 100%)"></div>
-  <div style="position:relative;max-width:1400px;margin:0 auto;padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(44px,6vw,96px);align-items:center">
-    <div data-reveal style="display:flex;flex-direction:column;gap:24px">
+  <div style="position:relative;max-width:1400px;margin:0 auto;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(24px,6vw,96px);align-items:center">
+    <div data-reveal style="display:flex;flex-direction:column;gap:clamp(14px,2vw,24px)">
       <div style="display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#E7DCCB"><span style="width:40px;height:1px;background:rgba(243,238,230,.45)"></span><span>Первое занятие</span></div>
-      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(44px,5.6vw,92px);line-height:.94;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Самое сложное —<br><em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#D2B48C;letter-spacing:0">прийти</em></h2>
-      <p style="margin:0;max-width:460px;font-size:17px;line-height:1.65;color:#E7DCCB;text-wrap:pretty">Оставьте имя и телефон — перезвоним в течение 15 минут, подберём практику, время и карту. Коврик, чай и тишина — за нами.</p>
-      <div style="display:flex;flex-direction:column;gap:12px;padding-top:26px;border-top:1px solid rgba(243,238,230,.18)">
+      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(36px,5.6vw,92px);line-height:.94;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Самое сложное —<br><em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#D2B48C;letter-spacing:0">прийти</em></h2>
+      <p style="margin:0;max-width:460px;font-size:clamp(15px,3.9vw,17px);line-height:1.6;color:#E7DCCB;text-wrap:pretty">Оставьте имя и телефон — перезвоним в течение 15 минут, подберём практику, время и карту. Коврик, чай и тишина — за нами.</p>
+      <sc-if value="{{ notMobile }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:12px;padding-top:26px;border-top:1px solid rgba(243,238,230,.18)">
         <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#B5AA9A">Или просто позвоните</span>
         <a href="tel:+74951079774" style="font-family:Oswald;font-weight:300;font-size:clamp(30px,3.2vw,44px);line-height:1;color:#F3EEE6;letter-spacing:.02em" style-hover="color:#D2B48C">+7 (495) 107-97-74</a>
         <span style="font-size:14px;color:#B5AA9A">Ежедневно с 07:00 до 23:00 · Кировоградская, 15</span>
-      </div>
+      </div></sc-if>
     </div>
     <div data-reveal style="padding:clamp(26px,3vw,44px);border-radius:4px;background:rgba(28,26,23,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(243,238,230,.14)">
       <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-        <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:22px">
+        <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:clamp(14px,2vw,22px)">
           <label style="display:flex;flex-direction:column;gap:10px">
             <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#B5AA9A">Имя</span>
-            <input value="{{ name }}" onChange="{{ onName }}" placeholder="Как к вам обращаться" required autoComplete="name" style="padding:14px 0;border:none;border-bottom:1px solid rgba(243,238,230,.35);background:transparent;color:#F3EEE6;font-size:18px;outline:none;border-radius:0" style-focus="border-color:#D2B48C">
+            <input value="{{ name }}" onChange="{{ onName }}" placeholder="Как к вам обращаться" required autoComplete="name" style="padding:clamp(10px,1.2vw,14px) 0;border:none;border-bottom:1px solid rgba(243,238,230,.35);background:transparent;color:#F3EEE6;font-size:18px;outline:none;border-radius:0" style-focus="border-color:#D2B48C">
           </label>
           <label style="display:flex;flex-direction:column;gap:10px">
             <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#B5AA9A">Телефон</span>
-            <input value="{{ phone }}" onChange="{{ onPhone }}" type="tel" placeholder="+7 (___) ___-__-__" required autoComplete="tel" style="padding:14px 0;border:none;border-bottom:1px solid rgba(243,238,230,.35);background:transparent;color:#F3EEE6;font-size:18px;outline:none;border-radius:0" style-focus="border-color:#D2B48C">
+            <input value="{{ phone }}" onChange="{{ onPhone }}" type="tel" placeholder="+7 (___) ___-__-__" required autoComplete="tel" style="padding:clamp(10px,1.2vw,14px) 0;border:none;border-bottom:1px solid rgba(243,238,230,.35);background:transparent;color:#F3EEE6;font-size:18px;outline:none;border-radius:0" style-focus="border-color:#D2B48C">
           </label>
           <div style="display:flex;flex-direction:column;gap:14px;padding-top:18px;border-top:1px solid rgba(243,238,230,.14)">
             <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;font-size:13px;line-height:1.55;color:#E7DCCB">
@@ -419,18 +429,18 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- 11 FAQ -->
-<section data-screen-label="11 FAQ" style="background:#F3EEE6;padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px)">
+<section data-screen-label="11 FAQ" style="background:#F3EEE6;padding:clamp(52px,10vw,150px) clamp(20px,4vw,56px)">
   <div style="max-width:1400px;margin:0 auto">
-    <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 48px;margin-bottom:clamp(32px,4vw,56px)">
-      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(40px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Вопросы и <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">ответы</em></h2>
+    <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 48px;margin-bottom:clamp(18px,4vw,56px)">
+      <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(32px,5.2vw,84px);line-height:.95;text-transform:uppercase;text-wrap:balance;padding-bottom:.06em">Вопросы и <em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;text-transform:none;color:#7A5F3E;letter-spacing:0">ответы</em></h2>
       <p style="margin:0;font-size:15px;line-height:1.6;color:#6B6258">Не нашли ответ? Спросите по телефону: <a href="tel:+74951079774" style="color:#7A5F3E;font-weight:500;white-space:nowrap" style-hover="color:#1C1A17">+7 (495) 107-97-74</a></p>
     </div>
     <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:0 clamp(32px,5vw,80px)">
       <div style="border-top:1px solid #1C1A17">
         <sc-for list="{{ faqL }}" as="f" hint-placeholder-count="4">
           <div style="border-bottom:1px solid #D8CDBD">
-            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 0;border:none;background:transparent;color:#1C1A17;text-align:left;cursor:pointer">
-              <span style="font-size:clamp(16px,1.3vw,19px);font-weight:500;line-height:1.4">{{ f.q }}</span>
+            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:clamp(15px,1.8vw,24px) 0;border:none;background:transparent;color:#1C1A17;text-align:left;cursor:pointer">
+              <span style="font-size:clamp(15px,1.3vw,19px);font-weight:500;line-height:1.35">{{ f.q }}</span>
               <span style="flex:none;width:36px;height:36px;border-radius:50%;border:1px solid #C9BEAE;display:flex;align-items:center;justify-content:center;font-size:18px;color:#7A5F3E">{{ f.sign }}</span>
             </button>
             <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:0 60px 26px 0;font-size:16px;line-height:1.65;color:#4A443D;text-wrap:pretty">{{ f.a }}</p></sc-if>
@@ -440,8 +450,8 @@ input::placeholder{color:rgba(243,238,230,.4)}
       <div style="border-top:1px solid #1C1A17">
         <sc-for list="{{ faqR }}" as="f" hint-placeholder-count="4">
           <div style="border-bottom:1px solid #D8CDBD">
-            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 0;border:none;background:transparent;color:#1C1A17;text-align:left;cursor:pointer">
-              <span style="font-size:clamp(16px,1.3vw,19px);font-weight:500;line-height:1.4">{{ f.q }}</span>
+            <button type="button" onClick="{{ f.toggle }}" aria-expanded="{{ f.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:clamp(15px,1.8vw,24px) 0;border:none;background:transparent;color:#1C1A17;text-align:left;cursor:pointer">
+              <span style="font-size:clamp(15px,1.3vw,19px);font-weight:500;line-height:1.35">{{ f.q }}</span>
               <span style="flex:none;width:36px;height:36px;border-radius:50%;border:1px solid #C9BEAE;display:flex;align-items:center;justify-content:center;font-size:18px;color:#7A5F3E">{{ f.sign }}</span>
             </button>
             <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:0 60px 26px 0;font-size:16px;line-height:1.65;color:#4A443D;text-wrap:pretty">{{ f.a }}</p></sc-if>
@@ -453,7 +463,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 
 <!-- FOOTER -->
-<footer data-screen-label="12 Footer" style="background:#1C1A17;color:#F3EEE6;padding:clamp(64px,8vw,110px) clamp(20px,4vw,56px) calc(28px + env(safe-area-inset-bottom))">
+<footer data-screen-label="12 Footer" style="background:#1C1A17;color:#F3EEE6;padding:clamp(48px,8vw,110px) clamp(20px,4vw,56px) calc(28px + env(safe-area-inset-bottom))">
   <div style="max-width:1400px;margin:0 auto">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:40px;padding-bottom:56px;border-bottom:1px solid rgba(243,238,230,.14)">
       <div style="display:flex;flex-direction:column;gap:18px">
@@ -603,10 +613,27 @@ input::placeholder{color:rgba(243,238,230,.4)}
 <script type="text/x-dc" data-dc-script data-props="{&quot;heroShot&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Из зала&quot;,&quot;Полукруг&quot;,&quot;Рассвет&quot;],&quot;default&quot;:&quot;Из зала&quot;,&quot;tsType&quot;:&quot;'Из зала' | 'Полукруг' | 'Рассвет'&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;heroMotion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Синемаграф&quot;,&quot;Фото&quot;],&quot;default&quot;:&quot;Синемаграф&quot;,&quot;tsType&quot;:&quot;'Синемаграф' | 'Фото'&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;offerOn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Открытие&quot;},&quot;openingShot&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Вечер&quot;,&quot;День&quot;],&quot;default&quot;:&quot;Вечер&quot;,&quot;tsType&quot;:&quot;'Вечер' | 'День'&quot;,&quot;section&quot;:&quot;Открытие&quot;},&quot;practicesStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Панели&quot;,&quot;Сетка&quot;],&quot;default&quot;:&quot;Панели&quot;,&quot;tsType&quot;:&quot;'Панели' | 'Сетка'&quot;,&quot;section&quot;:&quot;Направления&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Плавно&quot;,&quot;Выкл&quot;],&quot;default&quot;:&quot;Плавно&quot;,&quot;tsType&quot;:&quot;'Плавно' | 'Выкл'&quot;,&quot;section&quot;:&quot;Движение&quot;},&quot;telegramUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://t.me/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Расписание&quot;}}">
 class Component extends DCLogic {
   state = { w: typeof window !== 'undefined' ? window.innerWidth : 1280, scrolled: false, heroOut: false, formVis: false, menu: false, pv: 0, zone: 0, zoneHold: false, day: 0, today: -1, quote: 0, qO: 1, faq: -1, name: '', phone: '', pick: null, slot: null, agree: false, promo: false, sent: false, doc: null, ck: 'pending' };
-  rootRef = React.createRef(); topRef = React.createRef(); heroRef = React.createRef(); signupRef = React.createRef(); heroVideoRef = el => {
-    if (!el || el.__v5bound) return; el.__v5bound = true;
+  logoClick = () => this.setState(s => ({ logoN: (s.logoN || 0) + 1 }));
+  rootRef = React.createRef(); topRef = React.createRef(); heroRef = React.createRef(); signupRef = React.createRef(); heroVideoRef = host => {
+    // Two stacked copies of the clip: when the playing one nears its end, the other starts and dissolves over it.
+    if (!host || host.__v5bound) return; host.__v5bound = true;
+    const SRC = 'assets/v5/hero-loop.mp4', FADE = 1.6;
+    const mk = () => { const v = document.createElement('video'); v.muted = true; v.playsInline = true; v.preload = 'auto'; v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+      v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;transition:opacity ' + FADE + 's ease;opacity:0'; host.appendChild(v); return v; };
+    const a = mk(), b = mk(); let cur = a, nxt = b, swapping = false;
+    const show = v => { v.style.opacity = '1'; };
     const ok = () => { if (!this.state.heroVid) this.setState({ heroVid: true }); };
-    if (el.readyState >= 3) ok(); else el.addEventListener('canplay', ok, { once: true });
+    const tick = () => { if (!host.isConnected) return; const d = cur.duration;
+      if (document.hidden) { requestAnimationFrame(tick); return; }
+      if (d && !swapping && cur.currentTime > d - FADE - 0.1) { swapping = true; nxt.currentTime = 0; const p = nxt.play(); if (p && p.catch) p.catch(() => {}); show(nxt); const old = cur; cur = nxt; nxt = old;
+        setTimeout(() => { old.style.opacity = '0'; old.pause(); swapping = false; }, FADE * 1000); }
+      requestAnimationFrame(tick); };
+    const start = () => { show(a); const p = a.play(); if (p && p.catch) p.catch(() => {}); ok(); requestAnimationFrame(tick); };
+    // one network fetch for both layers; falls back to direct src if blob fetch fails
+    const boot = url => { a.src = url; b.src = url; if (a.readyState >= 3) start(); else a.addEventListener('canplay', start, { once: true }); };
+    const idle = window.requestIdleCallback || (fn => setTimeout(fn, 600));
+    idle(() => { fetch(SRC).then(r => r.ok ? r.blob() : Promise.reject()).then(bl => boot(URL.createObjectURL(bl))).catch(() => boot(SRC)); });
+    document.addEventListener('visibilitychange', () => { if (!host.isConnected) return; if (document.hidden) cur.pause(); else { const p = cur.play(); if (p && p.catch) p.catch(() => {}); } });
   };
   componentDidMount() {
     this.onResize = () => { if (window.innerWidth !== this.state.w) this.setState({ w: window.innerWidth }); };
@@ -657,7 +684,8 @@ class Component extends DCLogic {
     const s = this.state, mobile = s.w < 1024, motion = this.motionOn(), pad = n => String(n).padStart(2, '0');
     const plural = (n, f) => { const a = n % 10, b = n % 100; return f[a === 1 && b !== 11 ? 0 : a >= 2 && a <= 4 && (b < 12 || b > 14) ? 1 : 2]; };
     const panels = !mobile && (this.props.practicesStyle ?? 'Панели') === 'Панели';
-    const heroLive = (this.props.heroShot ?? 'Из зала') === 'Из зала' && (this.props.heroMotion ?? 'Синемаграф') === 'Синемаграф' && motion && !this.reduce;
+    const heroLive = !mobile && (this.props.heroShot ?? 'Из зала') === 'Из зала' && (this.props.heroMotion ?? 'Синемаграф') === 'Синемаграф' && motion && !this.reduce && !(navigator.connection && navigator.connection.saveData);
+    const srcset = (img, small, full) => `${img.replace('.jpg', '-m.jpg')} ${small}w, ${img} ${full}w`;
     const CHIP = ['Хатха', 'Аштанга', 'Айенгар', 'Аэройога', 'Медитации в воде', 'Гонги и звук'];
     const PR = [
       ['Хатха-йога', 'Все уровни', 'Классика в спокойном темпе: асаны с удержанием, дыхание, внимание к телу. Лучший старт.', 'укоренённость', true, 'hatha'],
@@ -667,7 +695,7 @@ class Component extends DCLogic {
       ['Медитации в воде', 'Все уровни', 'Флоатинг на специальных плотах, элементы Watsu и гидро-саунд сессии. Есть только у нас.', 'текучесть', true, 'water'],
       ['Гонг-медитации', 'Все уровни', 'Звуковая терапия с планетарными гонгами, поющими чашами и этническими инструментами.', 'резонанс', true, 'gong'],
     ];
-    const practices = PR.map((p, i) => { const on = (s.pv || 0) === i; return { n: pad(i + 1), title: p[0], level: p[1], text: p[2], mood: p[3], first: p[4], firstTag: p[4] ? ' · для первого раза' : '', img: `assets/v5/prac-${p[5]}.jpg`,
+    const practices = PR.map((p, i) => { const on = (s.pv || 0) === i; return { n: pad(i + 1), title: p[0], level: p[1], text: p[2], mood: p[3], first: p[4], firstTag: p[4] ? ' · для первого раза' : '', img: `assets/v5/prac-${p[5]}.jpg`, srcset: srcset(`assets/v5/prac-${p[5]}.jpg`, 700, 1400),
       flex: on ? '3.4 1 0%' : '1 1 0%', imgT: on ? 'scale(1)' : 'scale(1.1)', dimO: on ? 0 : .5, colO: on ? 0 : 1, expO: on ? 1 : 0, expT: on ? 'translateY(0)' : 'translateY(18px)', expPe: on ? 'auto' : 'none',
       enter: () => { if (this.state.pv !== i) this.setState({ pv: i }); }, book: () => this.setState({ pick: CHIP[i] }) }; });
     const pillars = [
@@ -683,7 +711,7 @@ class Component extends DCLogic {
         ['Акустический велнес', 'Единственное в России профессиональное направление: пространственное аудио, планетарные гонги и поющие чаши.', true],
         ['Виброакустическая сауна', 'Термальные медитации, где тепло и звук работают вместе.', true],
         ['Дзен-лаундж и живая музыка', 'Китайские и японские чаепития, еженедельные вечера медитативной живой музыки.', true]] },
-    ].map(p => ({ ...p, rows: p.rows.map(r => ({ t: r[0], d: r[1], dot: r[2] ? '#D2B48C' : 'transparent', ring: r[2] ? '#D2B48C' : 'rgba(243,238,230,.35)' })) }));
+    ].map(p => ({ ...p, srcset: srcset(p.img, 700, 1400), rows: p.rows.map(r => ({ t: r[0], d: r[1], dot: r[2] ? '#D2B48C' : 'transparent', ring: r[2] ? '#D2B48C' : 'rgba(243,238,230,.35)' })) }));
     const ZN = [
       ['AQUA Zone', 'текучесть', '50-метровый бассейн с панорамным остеклением, зона гидро-медитаций и термальный комплекс: хаммам и сауна.', 'aqua', '50 м · панорамное остекление'],
       ['YOGA Studio', 'укоренённость', 'Большой зал для практик: все направления йоги — от хатхи и аштанги до аэройоги и терапевтических классов.', 'yoga', '4 зала · дневной свет'],
@@ -691,7 +719,7 @@ class Component extends DCLogic {
       ['ZEN Lounge', 'пауза', 'Чайная зона с низкими подиумами, мягким светом, живой зеленью и сценой для музыкантов.', 'zen', 'чай · живая музыка'],
     ];
     const zi = s.zone % 4;
-    const zones = ZN.map((z, k) => { const on = k === zi; return { n: pad(k + 1), name: z[0], mood: z[1], text: z[2], img: `assets/v5/zone-${z[3]}.jpg`, on: on ? 1 : 0, color: on ? '#F3EEE6' : '#7F7568', numColor: on ? '#D2B48C' : '#6B6258', scale: on && motion ? 'scale(1.06)' : 'scale(1)', pick: () => { if (this.state.zone !== k) this.setState({ zone: k }); } }; });
+    const zones = ZN.map((z, k) => { const on = k === zi; return { n: pad(k + 1), name: z[0], mood: z[1], text: z[2], img: `assets/v5/zone-${z[3]}.jpg`, srcset: z[3] === 'sound' ? srcset('assets/v5/zone-sound.jpg', 1000, 2000) : `assets/v5/zone-${z[3]}.jpg 1024w`, on: on ? 1 : 0, color: on ? '#F3EEE6' : '#7F7568', numColor: on ? '#D2B48C' : '#6B6258', scale: on && motion ? 'scale(1.06)' : 'scale(1)', pick: () => { if (this.state.zone !== k) this.setState({ zone: k }); } }; });
     const dayLabels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'], dayNames = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
     const classes = this.dayClasses(s.day).map(c => ({ time: c[0], name: c[1], teacher: c[2], dur: c[3], level: c[4], first: c[6], spots: `${c[5] <= 2 ? 'Осталось' : 'Свободно'} ${c[5]} ${plural(c[5], ['место', 'места', 'мест'])}`, book: () => this.setState({ pick: c[7] }) }));
     const masters = [
@@ -699,6 +727,7 @@ class Component extends DCLogic {
       { name: 'Мария Орлова', mood: 'резонанс', dir: 'Аштанга · Гонг-медитации', img: 'assets/v5/master-maria.jpg', alt: 'Мария Орлова у планетарного гонга', text: 'Динамика утром и звук вечером: ведёт аштанга-виньясу и гонг-медитации с планетарными гонгами и поющими чашами.' },
       { name: 'Ольга Серова', mood: 'текучесть', dir: 'Медитации в воде · Термальные практики', img: 'assets/v5/master-olga.jpg', alt: 'Ольга Серова в бассейне', text: 'Флоатинг, элементы Watsu и термальные медитации в сауне. Помогает отпустить контроль — сначала телу, потом уму.' },
     ];
+    masters.forEach(m => { m.srcset = srcset(m.img, 700, 1200); });
     const Q = [
       ['Пришла с болью в шее после офиса. Через месяц хатхи забыла, где она была. И впервые за годы стала нормально спать.', 'Екатерина, 34', 'практикует 8 месяцев'],
       ['Руковожу командой из 80 человек. Гонг-медитация по пятницам — единственный час в неделю, когда голова по-настоящему отключается.', 'Дмитрий, 41', 'клубная карта, 1 год'],
@@ -726,6 +755,10 @@ class Component extends DCLogic {
     const docTabs = [['policy', 'Политика'], ['consent', 'Согласие'], ['ads', 'Рассылка'], ['cookies', 'Cookie']].map(t => ({ label: t[1], active: s.doc === t[0], inactive: s.doc !== t[0], open: openDoc(t[0]) }));
     const barOn = mobile && s.heroOut && !s.formVis && !s.menu && !s.doc;
     return {
+      logoBreath: motion ? 'v5Pranayama 12s cubic-bezier(.45,0,.3,1) infinite 1.6s' : 'none',
+      logoGrow: motion ? 'v5LogoGrow .9s cubic-bezier(.2,.7,.2,1) .1s both' : 'none', logoDraw: motion ? 'v5LogoDraw .8s ease-out .7s both' : 'none',
+      logoBI: motion ? 'v5LogoIn .7s ease-out 1.05s both' : 'none', logoNIX: motion ? 'v5LogoIn .7s ease-out 1.2s both' : 'none', logoTag: motion ? 'v5LogoIn .7s ease-out 1.45s both' : 'none',
+      logoClick: this.logoClick, ringA: motion && (s.logoN || 0) % 2 === 1, ringB: motion && (s.logoN || 0) > 0 && s.logoN % 2 === 0,
       ready: true, rootRef: this.rootRef, topRef: this.topRef, heroRef: this.heroRef, signupRef: this.signupRef,
       isMobile: mobile, isDesktop: !mobile,
       hdrBg: s.scrolled || s.menu ? 'rgba(28,26,23,.8)' : 'transparent', hdrBd: s.scrolled || s.menu ? 'rgba(243,238,230,.1)' : 'transparent', hdrBlur: s.scrolled || s.menu ? 'blur(16px)' : 'none',
@@ -737,7 +770,7 @@ class Component extends DCLogic {
       offerOn: this.props.offerOn ?? true, openingEve: (this.props.openingShot ?? 'Вечер') === 'Вечер', openingDay: this.props.openingShot === 'День', tgUrl: this.props.telegramUrl || 'https://t.me/',
       pillars, practices, prPanels: panels, prGrid: !panels,
       prD: mobile ? 'flex' : 'grid', prGap: mobile ? '12px' : '16px', prOx: mobile ? 'auto' : 'visible', prSnap: mobile ? 'x mandatory' : 'none', prM: mobile ? '0 calc(clamp(20px,4vw,56px) * -1)' : '0', prPl: mobile ? 'clamp(20px,4vw,56px)' : '0', prFlex: mobile ? '0 0 80%' : '0 1 auto', prMaxW: mobile ? '360px' : 'none',
-      msD: mobile ? 'flex' : 'grid', msOx: mobile ? 'auto' : 'visible', msSnap: mobile ? 'x mandatory' : 'none', msM: mobile ? '0 calc(clamp(20px,4vw,56px) * -1)' : '0', msP: mobile ? '0 clamp(20px,4vw,56px) 8px' : '0', msFlex: mobile ? '0 0 78%' : '0 1 auto', msMaxW: mobile ? '340px' : 'none', msHint: mobile, plFlex: mobile ? '0 0 84%' : '1 1 0%',
+      msD: mobile ? 'flex' : 'grid', msOx: mobile ? 'auto' : 'visible', msSnap: mobile ? 'x mandatory' : 'none', msM: mobile ? '0 calc(clamp(20px,4vw,56px) * -1)' : '0', msP: mobile ? '0 clamp(20px,4vw,56px) 8px' : '0', msFlex: mobile ? '0 0 78%' : '0 1 auto', msMaxW: mobile ? '340px' : 'none', msHint: mobile, plFlex: mobile ? '0 0 84%' : '1 1 0%', cardAspect: mobile ? '4/3' : '4/5', pillarAspect: mobile ? '16/9' : '4/5', notMobile: !mobile,
       zones, zoneText: ZN[zi][2], zoneCap: `${pad(zi + 1)} / 04 · ${ZN[zi][0]}`, zoneArea: ZN[zi][4], zListOrder: mobile ? '1' : '0', zHold: () => this.setState({ zoneHold: true }), zRelease: () => this.setState({ zoneHold: false }),
       days: dayLabels.map((l, i) => ({ label: l, active: i === s.day, inactive: i !== s.day, aria: dayNames[i] + (i === s.today ? ', сегодня' : ''), select: () => this.setState({ day: i }) })),
       classes, rowCols: mobile ? '72px minmax(0,1fr)' : '112px minmax(0,1fr) auto auto', timeSize: mobile ? '28px' : '38px', spotsCol: mobile ? '1 / -1' : 'auto', btnCol: mobile ? '1 / -1' : 'auto', btnJustify: mobile ? 'stretch' : 'end',
