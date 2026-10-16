@@ -756,8 +756,10 @@ class Component extends DCLogic {
     }
     this.onResize = () => { if (window.innerWidth !== this.state.w) this.setState({ w: window.innerWidth }); this.parallax(); };
     window.addEventListener('resize', this.onResize);
-    this.onScroll = () => { if (this.raf) return; this.raf = requestAnimationFrame(() => { this.raf = 0; this.parallax(); }); };
+    this.onScroll = () => { if (this.raf) return; this.raf = requestAnimationFrame(() => { this.raf = 0; this.parallax(); this.checkReveal(); }); };
     window.addEventListener('scroll', this.onScroll, { passive: true });
+    if (this.rootRef.current) this.rootRef.current.addEventListener('scroll', this.onScroll, { passive: true });
+    this.rvTimer = setInterval(() => { if (!document.hidden) this.checkReveal(); }, 900);
     const d = new Date().getDay(); this.setState({ day: (d + 6) % 7, today: (d + 6) % 7 });
     let ck = null; try { ck = JSON.parse(localStorage.getItem('bionix_v5_cookie')); } catch (e) { ck = null; }
     this.setState({ ck: ck || null });
@@ -777,8 +779,18 @@ class Component extends DCLogic {
     this.quoteTimer = setInterval(() => { if (!document.hidden && this.motionOn()) this.shiftQuote(1); }, 9000);
   }
   componentDidUpdate() { const k = (this.state.w < 1024) + '|' + this.state.sent; if (this.lastKey !== k) { this.lastKey = k; this.scanReveal(); } }
-  componentWillUnmount() { window.removeEventListener('resize', this.onResize); window.removeEventListener('scroll', this.onScroll); if (this.raf) cancelAnimationFrame(this.raf); (this.ios || []).forEach(io => io.disconnect()); if (this.rio) this.rio.disconnect(); if (this.secIO) this.secIO.disconnect(); clearTimeout(this.zoneT); clearInterval(this.quoteTimer); clearTimeout(this.qT); clearTimeout(this.introT); clearTimeout(this.introT2); }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); window.removeEventListener('scroll', this.onScroll); if (this.rootRef.current) this.rootRef.current.removeEventListener('scroll', this.onScroll); clearInterval(this.rvTimer); if (this.raf) cancelAnimationFrame(this.raf); (this.ios || []).forEach(io => io.disconnect()); if (this.rio) this.rio.disconnect(); if (this.secIO) this.secIO.disconnect(); clearTimeout(this.zoneT); clearInterval(this.quoteTimer); clearTimeout(this.qT); clearTimeout(this.introT); clearTimeout(this.introT2); }
   motionOn() { return !this.reduce && (this.props.motion ?? 'Плавно') !== 'Выкл'; }
+  checkReveal() {
+    // Safety net for the scroll reveals: anything still hidden whose box is on screen gets revealed, whatever the observer reported.
+    if (!this.rvHidden || !this.rvHidden.size || !this.rvReveal) return;
+    const vh = window.innerHeight || 800; let k = 0;
+    Array.from(this.rvHidden).forEach(t => {
+      if (!t.isConnected) { this.rvHidden.delete(t); return; }
+      const r = t.getBoundingClientRect(); if (!r.width && !r.height) return;
+      if (r.top < vh * .94 && r.bottom > 0) { this.rvReveal(t, k); k++; }
+    });
+  }
 
   parallax() {
     // Desktop depth: hero media/content drift apart on scroll; [data-px] images inside [data-pxf] frames move slower than the page.
@@ -806,30 +818,43 @@ class Component extends DCLogic {
     els.forEach(el => { el.dataset.rv = '1'; });
     if (!this.motionOn() || typeof IntersectionObserver === 'undefined') return;
     const E = 'cubic-bezier(.16,1,.3,1)';
+    this.rvHidden = this.rvHidden || new Set();
+    const hide = t => {
+      if (t.dataset.rvPrev || t.__rvDone) return;
+      const prev = { transition: t.style.transition, transitionDelay: t.style.transitionDelay, opacity: t.style.opacity, transform: t.style.transform, clipPath: t.style.clipPath };
+      t.dataset.rvPrev = JSON.stringify(prev);
+      const own = prev.transition ? prev.transition + ', ' : '', mode = t.dataset.rvMode;
+      if (mode === 'clip') { t.style.transition = own + 'clip-path 1.6s ' + E + ', transform 1.6s ' + E; t.style.clipPath = 'inset(0 0 100% 0)'; t.style.transform = 'scale(1.06)'; }
+      else if (mode === 'lines') { t.style.transition = own + 'transform 1.4s ' + E; t.style.transform = 'translateY(120%)'; }
+      else { t.style.transition = own + 'opacity 1.5s ' + E + ', transform 1.5s ' + E; t.style.opacity = '0'; t.style.transform = 'translateY(64px)'; }
+      this.rvHidden.add(t);
+    };
+    this.rvReveal = (t, k) => {
+      if (t.__rvDone) return; t.__rvDone = true; this.rvHidden.delete(t);
+      const d = (+t.dataset.rvDelay || 0) + k * (+t.dataset.rvStep || 90);
+      t.style.transitionDelay = d + 'ms';
+      if (t.dataset.rvMode === 'clip') { t.style.clipPath = 'inset(0 0 0 0)'; t.style.transform = 'none'; } else if (t.dataset.rvMode === 'lines') t.style.transform = 'none'; else { t.style.opacity = '1'; t.style.transform = 'none'; }
+      setTimeout(() => { let p = {}; try { p = JSON.parse(t.dataset.rvPrev || '{}'); } catch (e) {} ['transition', 'transitionDelay', 'opacity', 'transform', 'clipPath'].forEach(key => { t.style[key] = p[key] || ''; }); delete t.dataset.rvPrev; }, d + 1900);
+    };
+    // The observer watches a probe (the clipped frame's parent for "clip" mode — a clip-path on the target itself can zero its
+    // intersection in some engines), and checkReveal() below double-checks geometry on scroll so nothing stays hidden on screen.
     if (!this.rio) this.rio = new IntersectionObserver(es => {
       let k = 0;
       es.forEach(en => {
-        const t = en.target;
-        if (!t.dataset.rvPrev) {
-          // First observation decides: offscreen targets get the hidden state (no visible jump); visible ones are left as they are.
-          if (en.isIntersecting) { this.rio.unobserve(t); return; }
-          const prev = { transition: t.style.transition, transitionDelay: t.style.transitionDelay, opacity: t.style.opacity, transform: t.style.transform, clipPath: t.style.clipPath };
-          t.dataset.rvPrev = JSON.stringify(prev);
-          const own = prev.transition ? prev.transition + ', ' : '', mode = t.dataset.rvMode;
-          if (mode === 'clip') { t.style.transition = own + 'clip-path 1.6s ' + E + ', transform 1.6s ' + E; t.style.clipPath = 'inset(0 0 100% 0)'; t.style.transform = 'scale(1.06)'; }
-          else if (mode === 'lines') { t.style.transition = own + 'transform 1.4s ' + E; t.style.transform = 'translateY(120%)'; }
-          else { t.style.transition = own + 'opacity 1.5s ' + E + ', transform 1.5s ' + E; t.style.opacity = '0'; t.style.transform = 'translateY(64px)'; }
-          return;
-        }
-        if (!en.isIntersecting) return;
-        const d = (+t.dataset.rvDelay || 0) + k * (+t.dataset.rvStep || 90); k++;
-        this.rio.unobserve(t);
-        t.style.transitionDelay = d + 'ms';
-        if (t.dataset.rvMode === 'clip') { t.style.clipPath = 'inset(0 0 0 0)'; t.style.transform = 'none'; } else if (t.dataset.rvMode === 'lines') t.style.transform = 'none'; else { t.style.opacity = '1'; t.style.transform = 'none'; }
-        setTimeout(() => { let p = {}; try { p = JSON.parse(t.dataset.rvPrev || '{}'); } catch (e) {} ['transition', 'transitionDelay', 'opacity', 'transform', 'clipPath'].forEach(key => { t.style[key] = p[key] || ''; }); delete t.dataset.rvPrev; }, d + 1900);
+        (en.target.__rvT || []).forEach(t => {
+          if (t.__rvDone) return;
+          if (!t.dataset.rvPrev) { if (en.isIntersecting) { t.__rvDone = true; return; } hide(t); return; }
+          if (!en.isIntersecting) return;
+          this.rvReveal(t, k); k++;
+        });
+        if ((en.target.__rvT || []).every(t => t.__rvDone)) this.rio.unobserve(en.target);
       });
     }, { threshold: .05, rootMargin: '0px 0px -8% 0px' });
-    const prep = (t, mode, delay, step) => { if (t.dataset.rvMode) return; t.dataset.rvMode = mode; t.dataset.rvDelay = delay; t.dataset.rvStep = step; this.rio.observe(t); };
+    const prep = (t, mode, delay, step) => {
+      if (t.dataset.rvMode) return; t.dataset.rvMode = mode; t.dataset.rvDelay = delay; t.dataset.rvStep = step;
+      const probe = mode === 'clip' && t.parentElement ? t.parentElement : t;
+      (probe.__rvT = probe.__rvT || []).push(t); this.rio.observe(probe);
+    };
     els.forEach(el => {
       const mode = el.dataset.reveal || 'up', delay = +el.dataset.delay || 0;
       if (mode === 'lines') el.querySelectorAll('[data-line]').forEach(t => prep(t, 'lines', delay, 140));
