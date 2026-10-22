@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1C1A17">
-<meta name="bionix-build" content="7.3-qa">
+<meta name="bionix-build" content="7.11-final">
 <title>BIONIX YOGA LAB — йога, вода и звук в Москве</title>
-<meta name="description" content="Центр йоги BIONIX YOGA LAB у м. Пражская: все направления йоги, 50-метровый бассейн с медитациями в воде и акустический велнес. Открытие: начало продаж со скидкой 50%.">
+<meta name="description" content="BIONIX YOGA LAB у м. Пражская — единственный в Москве центр йоги с бассейном 50 м: все направления йоги, медитации в воде и акустический велнес. Открытие: начало продаж со скидкой 50%.">
 <link rel="preload" href="fonts/fonts.css" as="style">
 <link rel="preload" href="fonts/Oswald-300-46.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/CormorantGaramond-400i-2.woff2" as="font" type="font/woff2" crossorigin>
@@ -79,6 +79,9 @@ input::placeholder{color:rgba(243,238,230,.4)}
 @keyframes v9Shake{0%,100%{transform:scale(1)}30%{transform:scale(1.02)}65%{transform:scale(.995)}}
 @keyframes v9Ripple{0%{transform:scale(1);opacity:0}10%{opacity:.9}100%{transform:scale(5.2);opacity:0}}
 @keyframes v9RippleLoop{0%{transform:scale(1);opacity:0}3%{opacity:.6}32%{transform:scale(5.2);opacity:0}100%{transform:scale(5.2);opacity:0}}
+@keyframes v10Swim{from{transform:scaleX(0)}to{transform:none}}
+@keyframes v10Dot{from{left:0}to{left:100%}}
+@keyframes v10Pulse{0%{transform:scale(1);opacity:0}8%{opacity:.8}60%,100%{transform:scale(3.2);opacity:0}}
 @media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}html{scroll-behavior:auto}}
 </style>
 </helmet>
@@ -188,6 +191,53 @@ input::placeholder{color:rgba(243,238,230,.4)}
 </section>
 </sc-if>
 
+<!-- 01c POOL · USP -->
+<section id="pool" data-pxf data-screen-label="01c Pool" style="position:relative;display:flex;flex-direction:column;justify-content:flex-end;box-sizing:border-box;min-height:{{ poolMinH }};color:#F3EEE6;background:#141210;overflow:hidden;scroll-margin-top:{{ poolSmt }}">
+  <div style="position:{{ poolMediaPos }};inset:{{ poolMediaInset }};width:100%;aspect-ratio:{{ poolMediaAr }};overflow:hidden;background:#1C1A17">
+    <img ref="{{ imgIn }}" data-px=".06" src="assets/v5/pool-50-hd.jpg" srcSet="assets/v5/pool-50-hd-m.jpg 1280w, assets/v5/pool-50-hd-l.jpg 1920w, assets/v5/pool-50-hd.jpg 2560w" sizes="100vw" loading="lazy" decoding="async" alt="Бассейн 50 метров в BIONIX YOGA LAB: бирюзовые дорожки уходят вдаль" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ poolPos }};opacity:0;will-change:transform;transition:opacity 1.4s ease">
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,13,15,.6) 0%,rgba(10,13,15,.18) 46%,rgba(10,13,15,0) 72%);opacity:{{ poolSideO }}"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,13,15,.55) 0%,rgba(10,13,15,0) 20%,rgba(10,13,15,0) 36%,rgba(10,13,15,.62) 62%,rgba(10,13,15,.9) 100%)"></div>
+  </div>
+  <div style="position:relative;width:100%;max-width:1400px;margin:{{ poolContentMt }} auto 0;box-sizing:border-box;padding:{{ poolPad }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));align-items:end;gap:clamp(16px,2.4vh,32px) clamp(28px,5vw,96px)">
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.6vh,18px);min-width:0">
+        <div data-reveal style="display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#E7DCCB"><span aria-hidden="true" style="width:40px;height:1px;background:rgba(243,238,230,.55)"></span><span>Бассейн · AQUA Zone</span></div>
+        <h2 data-reveal="lines" style="margin:0;font-family:Oswald;font-weight:300;line-height:.96;text-transform:uppercase;color:#F3EEE6">
+          <span style="display:block;font-size:clamp(24px,2.6vw,42px);letter-spacing:.02em;clip-path:inset(-.3em 0 -.14em 0)"><span data-line style="display:block">Единственный в Москве</span></span>
+          <span style="display:block;font-size:clamp(24px,2.6vw,42px);letter-spacing:.02em;clip-path:inset(-.3em 0 -.14em 0)"><span data-line style="display:block">центр йоги с бассейном</span></span>
+          <span style="display:block;margin-top:clamp(4px,1vh,12px);font-size:clamp(100px,11.5vw,196px);line-height:.8;clip-path:inset(-.2em -.1em -.12em 0)"><span data-line style="display:flex;align-items:baseline;gap:.08em"><span style="letter-spacing:-.04em">50</span><em style="font-family:'Cormorant Garamond';font-style:italic;font-weight:400;font-size:.3em;line-height:1;text-transform:none;letter-spacing:0;color:#D2B48C;background-image:linear-gradient(100deg,#D2B48C 0%,#D2B48C 38%,#FBEFD8 50%,#D2B48C 62%,#D2B48C 100%);background-size:250% 100%;background-repeat:no-repeat;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:{{ sheenAnim }}">метров</em></span></span>
+        </h2>
+      </div>
+      <div data-reveal data-delay="250" style="display:flex;flex-direction:column;align-items:flex-start;gap:clamp(12px,1.8vh,18px);max-width:420px;justify-self:{{ poolBodyJs }};padding-bottom:clamp(4px,1.2vw,18px)">
+        <p style="margin:0;font-size:clamp(15px,1.15vw,18px);line-height:1.6;color:#E7DCCB;text-wrap:pretty">После асан — в воду: свободное плавание, флоатинг на плотах и Watsu. Та же практика, только в другой стихии — и без запаха хлора.</p>
+        <a href="#signup" onClick="{{ poolBook }}" style="display:inline-flex;align-items:center;gap:10px;padding:12px 0 6px;border-bottom:1px solid rgba(243,238,230,.5);font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#F3EEE6;transition:color .4s ease,border-color .4s ease" style-hover="color:#D2B48C;border-color:#D2B48C">Записаться на медитацию в воде <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div ref="{{ rulerRef }}" data-reveal data-delay="350" aria-hidden="true" style="position:relative;margin-top:clamp(20px,3.2vh,36px);padding-top:22px">
+      <span style="position:absolute;left:0;top:0;font-family:Oswald;font-weight:300;font-size:13px;line-height:1;letter-spacing:.12em;color:#B5AA9A">0</span>
+      <span style="position:absolute;left:50%;top:0;transform:translateX(-50%);font-family:Oswald;font-weight:300;font-size:13px;line-height:1;letter-spacing:.12em;color:#B5AA9A">25</span>
+      <span style="position:absolute;right:0;top:0;font-family:Oswald;font-weight:400;font-size:13px;line-height:1;letter-spacing:.12em;color:#D2B48C">50 м</span>
+      <div style="position:relative;height:1px;background:rgba(243,238,230,.22)">
+        <span style="position:absolute;inset:0;background:#D2B48C;transform-origin:left;animation:{{ swimLine }}"></span>
+        <span style="position:absolute;top:0;left:100%;width:9px;height:9px;margin:-4px 0 0 -4.5px;border-radius:50%;background:#D2B48C;box-shadow:0 0 14px rgba(210,180,140,.55);animation:{{ swimDot }}"><span style="position:absolute;inset:-1px;border-radius:50%;border:1px solid #D2B48C;opacity:0;animation:{{ swimRing }}"></span></span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <span style="width:1px;height:12px;background:rgba(243,238,230,.45)"></span>
+        <span style="width:1px;height:6px;background:rgba(243,238,230,.28)"></span>
+        <span style="width:1px;height:6px;background:rgba(243,238,230,.28)"></span>
+        <span style="width:1px;height:6px;background:rgba(243,238,230,.28)"></span>
+        <span style="width:1px;height:6px;background:rgba(243,238,230,.28)"></span>
+        <span style="width:1px;height:12px;background:rgba(243,238,230,.45)"></span>
+        <span style="width:1px;height:6px;background:rgba(243,238,230,.28)"></span>
+        <span style="width:1px;height:6px;background:rgba(243,238,230,.28)"></span>
+        <span style="width:1px;height:6px;background:rgba(243,238,230,.28)"></span>
+        <span style="width:1px;height:6px;background:rgba(243,238,230,.28)"></span>
+        <span style="width:1px;height:12px;background:rgba(243,238,230,.45)"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 02 MANIFESTO -->
 <section data-screen-label="02 Manifesto" style="background:#F3EEE6;padding:clamp(56px,11vw,170px) clamp(20px,4vw,56px)">
   <div style="max-width:980px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(18px,3.4vw,44px)">
@@ -253,10 +303,10 @@ input::placeholder{color:rgba(243,238,230,.4)}
       <h2 style="margin:0;font-family:Oswald;font-weight:300;font-size:clamp(20px,2vw,30px);line-height:1.1;letter-spacing:.14em;text-transform:uppercase;text-wrap:balance">Три стихии — одна практика</h2>
       <p style="margin:0;display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#B5AA9A"><span aria-hidden="true" style="flex:none;width:7px;height:7px;border-radius:50%;background:#D2B48C"></span><span>семь вещей, которых больше нет нигде</span></p>
     </div>
-    <div data-reveal data-stagger style="display:{{ msD }};grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(16px,3vw,44px) clamp(16px,2.5vw,36px);flex:1 1 auto;min-height:0;overflow-x:{{ msOx }};overflow-y:{{ msOy }};scroll-padding-left:{{ prPl }};scroll-snap-type:{{ msSnap }};margin:{{ msM }};padding:{{ msP }};scrollbar-width:none">
+    <div data-reveal data-stagger style="display:{{ msD }};grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));grid-auto-rows:{{ plAutoRows }};gap:clamp(16px,3vw,44px) clamp(16px,2.5vw,36px);flex:1 1 auto;min-height:0;overflow-x:{{ msOx }};overflow-y:{{ msOy }};scroll-padding-left:{{ prPl }};scroll-snap-type:{{ msSnap }};margin:{{ msM }};padding:{{ msP }};scrollbar-width:none">
       <sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ pillars }}" as="pl">
-        <div style="display:flex;flex-direction:column;gap:clamp(14px,1.8vw,22px);flex:{{ plFlex }};max-width:{{ msMaxW }};min-width:0;min-height:0;scroll-snap-align:start;scroll-snap-stop:always">
-          <div data-pxf style="position:relative;aspect-ratio:{{ pillarAspect }};flex:{{ plImgFlex }};min-height:0;overflow:hidden;border-radius:4px;background:#2A2621"><sc-if value="{{ pl.img }}" hint-placeholder-val="{{ false }}"><img ref="{{ imgIn }}" data-px=".08" src="{{ pl.img }}" srcSet="{{ pl.srcset }}" sizes="(max-width: 1023px) 80vw, 30vw" loading="lazy" decoding="async" alt="{{ pl.alt }}" style="position:absolute;inset:0;object-position:{{ pl.pos }};width:100%;height:100%;object-fit:cover;display:block;opacity:0;will-change:transform;transition:opacity 1.2s ease"></sc-if></div>
+        <div style="display:{{ plCardD }};flex-direction:column;grid-template-rows:{{ plCardRows }};grid-row:{{ plCardSpan }};gap:clamp(14px,1.8vw,22px);flex:{{ plFlex }};max-width:{{ msMaxW }};min-width:0;min-height:0;scroll-snap-align:start;scroll-snap-stop:always">
+          <div data-pxf style="position:relative;aspect-ratio:{{ pillarAspect }};flex:{{ plImgFlex }};align-self:stretch;min-height:0;overflow:hidden;border-radius:4px;background:#2A2621"><sc-if value="{{ pl.img }}" hint-placeholder-val="{{ false }}"><img ref="{{ imgIn }}" data-px=".08" src="{{ pl.img }}" srcSet="{{ pl.srcset }}" sizes="(max-width: 1023px) 80vw, 30vw" loading="lazy" decoding="async" alt="{{ pl.alt }}" style="position:absolute;inset:0;object-position:{{ pl.pos }};width:100%;height:100%;object-fit:cover;display:block;opacity:0;will-change:transform;transition:opacity 1.2s ease"></sc-if></div>
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(243,238,230,.25);padding-bottom:14px">
             <span style="font-family:Oswald;font-weight:300;font-size:clamp(40px,4vw,68px);line-height:.9;text-transform:uppercase;letter-spacing:.04em">{{ pl.title }}</span>
             <span style="font-family:'Cormorant Garamond';font-style:italic;font-size:22px;line-height:1;color:#D2B48C">{{ pl.mood }}</span>
@@ -728,6 +778,12 @@ class Component extends DCLogic {
     io.observe(el);
   };
   logoClick = () => this.setState(s => ({ logoN: (s.logoN || 0) + 1 }));
+  rulerRef = el => {
+    if (!el || el.__v10io) return; el.__v10io = true;
+    if (typeof IntersectionObserver === 'undefined') { this.setState({ poolGo: true }); return; }
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { this.setState({ poolGo: true }); io.disconnect(); } }, { threshold: 0.6 });
+    io.observe(el);
+  };
   rootRef = React.createRef(); topRef = React.createRef(); heroRef = React.createRef(); signupRef = React.createRef(); heroMediaRef = React.createRef(); heroContentRef = React.createRef(); heroVideoRef = host => {
     // Seamless clip (first frame == last frame): one <video loop>, fades in over the photo once it can play.
     if (!host || host.__v5bound) return; host.__v5bound = true;
@@ -896,7 +952,7 @@ class Component extends DCLogic {
       ['Аштанга-виньяса', 'Средний', 'Динамичная практика по фиксированной последовательности. Сила, выносливость и ясная голова.', 'сила', false, 'ashtanga'],
       ['Айенгар и терапия', 'Все уровни', 'Точное выстраивание поз с опорами и терапевтические классы для спины, суставов и восстановления.', 'точность', true, 'iyengar'],
       ['Аэройога', 'С 14 лет', 'Практика в гамаке: вытяжение позвоночника, перевёрнутые позы без нагрузки на шею.', 'невесомость', false, 'aerial'],
-      ['Медитации в воде', 'Все уровни', 'Флоатинг на специальных плотах, элементы Watsu и гидро-саунд сессии. Есть только у нас.', 'текучесть', true, 'water'],
+      ['Медитации в воде', 'Все уровни', 'Флоатинг на специальных плотах, элементы Watsu и гидро-саунд сессии. Есть только у нас.', 'текучесть', true, 'water-pool'],
       ['Гонг-медитации', 'Все уровни', 'Звуковая терапия с планетарными гонгами, поющими чашами и этническими инструментами.', 'резонанс', true, 'gong'],
     ];
     const practices = PR.map((p, i) => { const on = (s.pv || 0) === i; return { n: pad(i + 1), title: p[0], level: p[1], text: p[2], mood: p[3], first: p[4], firstTag: p[4] ? ' · для первого раза' : '', img: p[5] === 'hatha' ? 'assets/v5/hall-tall.jpg' : `assets/v5/prac-${p[5]}.jpg`, srcset: p[5] === 'hatha' ? srcset('assets/v5/hall-tall.jpg', 540, 880) : srcset(`assets/v5/prac-${p[5]}.jpg`, 700, 1400),
@@ -907,7 +963,7 @@ class Component extends DCLogic {
         ['Крупнейший центр йоги на юге Москвы', 'Более 1500 м², четыре зала с панорамными окнами и дневным светом.', true],
         ['Все направления', 'От хатхи и аштанги до айенгар-терапии и аэройоги — больше шестидесяти занятий в неделю.', false],
         ['Группы до 12 человек', 'Мастера с опытом преподавания от десяти лет видят каждого в зале.', false]] },
-      { title: 'Вода', mood: 'текучесть', img: 'assets/v5/prac-water.jpg', alt: 'Медитация в воде на плоту', rows: [
+      { title: 'Вода', mood: 'текучесть', img: 'assets/v5/pillar-water.jpg', alt: 'Медитация на плавающем мате в 50-метровом бассейне BIONIX YOGA LAB', rows: [
         ['Бассейн 50 метров', 'Единственный в Москве центр йоги с полноценным бассейном: панорамное остекление, очистка воды без запаха хлора.', true],
         ['Медитации в воде', 'Флоатинг на плотах, элементы Watsu и гидро-саунд сессии — только у нас.', true],
         ['Отдельный бассейн для Watsu', 'Тёплая вода и тишина для практик сенсорной депривации.', true]] },
@@ -956,8 +1012,8 @@ class Component extends DCLogic {
     const openDoc = id => () => this.setState({ doc: id, menu: false });
     const docTabs = [['policy', 'Политика'], ['consent', 'Согласие'], ['ads', 'Рассылка'], ['cookies', 'Cookie']].map(t => ({ label: t[1], active: s.doc === t[0], inactive: s.doc !== t[0], open: openDoc(t[0]) }));
     const ps = s.logoGo ? 'running' : 'paused', lp = s.leafGo ? 'running' : 'paused';
-    const SEC = { '01 Hero': ['', 'Начало', 'dark'], '01b Opening': ['01', 'Открытие', 'light'], '02 Manifesto': ['02', 'Манифест', 'light'], '03 Pillars': ['03', 'Стихии', 'dark'], '04 Practices': ['04', 'Направления', 'light'], '05 Space': ['05', 'Пространство', 'dark'], '06 Schedule': ['06', 'Расписание', 'light'], '07 Masters': ['07', 'Мастера', 'light'], '08 Quote': ['08', 'Отзывы', 'dark'], '09 Prices': ['09', 'Карты', 'light'], '10 Signup': ['10', 'Запись', 'dark'], '11 FAQ': ['11', 'Вопросы', 'light'], '12 Footer': ['12', 'Контакты', 'dark'] };
-    const sec = SEC[s.secLabel] || SEC['01 Hero'];
+    const SEC = { '01 Hero': ['', 'Начало', 'dark'], '01b Opening': ['01', 'Открытие', 'light'], '01c Pool': ['50 м', 'Бассейн', 'dark'], '02 Manifesto': ['02', 'Манифест', 'light'], '03 Pillars': ['03', 'Стихии', 'dark'], '04 Practices': ['04', 'Направления', 'light'], '05 Space': ['05', 'Пространство', 'dark'], '06 Schedule': ['06', 'Расписание', 'light'], '07 Masters': ['07', 'Мастера', 'light'], '08 Quote': ['08', 'Отзывы', 'dark'], '09 Prices': ['09', 'Карты', 'light'], '10 Signup': ['10', 'Запись', 'dark'], '11 FAQ': ['11', 'Вопросы', 'light'], '12 Footer': ['12', 'Контакты', 'dark'] };
+    const sec = SEC[s.secLabel] || SEC['01 Hero'], pg = s.poolGo ? 'running' : 'paused';
     return {
       railO: !mobile && s.secLabel && s.secLabel !== '01 Hero' ? 1 : 0, railN: sec[0], railLabel: sec[1], railColor: sec[2] === 'dark' ? '#F3EEE6' : '#1C1A17',
       hdrIn: motion ? `v6Fade 1.4s ease 1.5s both ${hp}` : 'none', sheenAnim: motion ? 'v7Sheen 7s ease-in-out 3s infinite' : 'none',
@@ -1008,7 +1064,11 @@ class Component extends DCLogic {
       plSecH: mobile ? 'auto' : '100vh', plSecPad: mobile ? 'clamp(52px,6vw,100px) clamp(20px,4vw,56px)' : 'calc(76px + 3.5vh) clamp(20px,4vw,56px) 4vh', plSecSmt: mobile ? 'calc(76px + env(safe-area-inset-top))' : '0px', plIntroMb: mobile ? 'clamp(22px,3vw,48px)' : 'clamp(16px,3vh,40px)', plImgFlex: mobile ? '0 0 auto' : '1 1 0%', plRowPad: mobile ? 'clamp(9px,1.2vw,14px) 0' : 'clamp(6px,1.1vh,13px) 0',
       prSecH: panels ? '100vh' : 'auto', prSecPad: panels ? 'calc(76px + 3.5vh) clamp(20px,4vw,56px) 4vh' : 'clamp(52px,10vw,150px) clamp(20px,4vw,56px)', prSecSmt: panels ? '0px' : 'calc(76px + env(safe-area-inset-top))', prIntroMb: panels ? 'clamp(18px,3.2vh,40px)' : 'clamp(22px,4.5vw,64px)',
       prD: mobile ? 'flex' : 'grid', prGap: mobile ? '12px' : '16px', prOx: mobile ? 'auto' : 'visible', prSnap: mobile ? 'x mandatory' : 'none', prM: mobile ? '0 calc(clamp(20px,4vw,56px) * -1)' : '0', prPl: mobile ? 'clamp(20px,4vw,56px)' : '0', prFlex: mobile ? '0 0 80%' : '0 1 auto', prMaxW: mobile ? '360px' : 'none',
-      msD: mobile ? 'flex' : 'grid', msOx: mobile ? 'auto' : 'visible', msSnap: mobile ? 'x mandatory' : 'none', msM: mobile ? '-8px calc(clamp(20px,4vw,56px) * -1) 0' : '0', msP: mobile ? '8px clamp(20px,4vw,56px) 8px' : '0', msFlex: mobile ? '0 0 78%' : '0 1 auto', msMaxW: mobile ? '340px' : 'none', msHint: mobile, plFlex: mobile ? '0 0 84%' : '1 1 0%', cardAspect: mobile ? '4/3' : '4/5', pillarAspect: mobile ? '16/9' : '2/1', notMobile: !mobile,
+      msD: mobile ? 'flex' : 'grid', msOx: mobile ? 'auto' : 'visible', msSnap: mobile ? 'x mandatory' : 'none', msM: mobile ? '-8px calc(clamp(20px,4vw,56px) * -1) 0' : '0', msP: mobile ? '8px clamp(20px,4vw,56px) 8px' : '0', msFlex: mobile ? '0 0 78%' : '0 1 auto', msMaxW: mobile ? '340px' : 'none', msHint: mobile, plFlex: mobile ? '0 0 84%' : '1 1 0%', cardAspect: mobile ? '4/3' : '4/5', pillarAspect: mobile ? '16/9' : 'auto', plAutoRows: mobile ? 'auto' : 'minmax(0,1fr) auto auto', plCardD: mobile ? 'flex' : 'grid', plCardRows: mobile ? 'none' : 'subgrid', plCardSpan: mobile ? 'auto' : 'span 3', notMobile: !mobile,
+      rulerRef: this.rulerRef, poolBook: () => this.setState({ pick: 'Медитации в воде' }),
+      swimLine: motion ? 'v10Swim 3.4s cubic-bezier(.5,0,.2,1) .4s both ' + pg : 'none', swimDot: motion ? 'v10Dot 3.4s cubic-bezier(.5,0,.2,1) .4s both ' + pg : 'none', swimRing: motion ? 'v10Pulse 4.8s cubic-bezier(.2,.6,.2,1) 4s infinite ' + pg : 'none',
+      poolMinH: mobile ? '100svh' : '100vh', poolMediaPos: 'absolute', poolMediaInset: '0', poolMediaAr: 'auto', poolPos: mobile ? '50% center' : 'center 55%', poolSideO: mobile ? 0 : 1, poolContentMt: '0px', poolBodyJs: mobile ? 'start' : 'end',
+      poolPad: mobile ? 'calc(88px + env(safe-area-inset-top)) clamp(20px,4vw,56px) clamp(28px,5vh,44px)' : 'calc(76px + 4vh) clamp(20px,4vw,56px) clamp(28px,4.5vh,52px)', poolSmt: mobile ? 'calc(76px + env(safe-area-inset-top))' : '0px',
       zones, zoneText: ZN[zi][2], zoneCap: `${pad(zi + 1)} / 04 · ${ZN[zi][0]}`, zoneArea: ZN[zi][4], zListOrder: mobile ? '1' : '0', zHold: () => { clearTimeout(this.zoneT); this.setState({ zoneHold: true }); }, zRelease: () => { this.setState(st => ({ zoneHold: false, zTick: st.zTick + 1 })); this.scheduleZone(); },
       dayName: dayNames[s.day], isToday: s.day === s.today,
       days: dayLabels.map((l, i) => { const on = i === s.day; return { label: l, active: on, aria: dayNames[i] + (i === s.today ? ', сегодня' : ''), bg: on ? '#1C1A17' : 'transparent', fg: on ? '#F3EEE6' : '#1C1A17', bd: on ? '#1C1A17' : '#B9AC98', select: () => { if (this.state.day !== i) this.setState(st => ({ day: i, scTick: st.scTick + 1 })); } }; }),
