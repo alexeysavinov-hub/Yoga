@@ -4,10 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1C1A17">
-<meta name="bionix-build" content="7.1-reveal-fix">
+<meta name="bionix-build" content="7.3-qa">
 <title>BIONIX YOGA LAB — йога, вода и звук в Москве</title>
 <meta name="description" content="Центр йоги BIONIX YOGA LAB у м. Пражская: все направления йоги, 50-метровый бассейн с медитациями в воде и акустический велнес. Открытие: начало продаж со скидкой 50%.">
 <link rel="preload" href="fonts/fonts.css" as="style">
+<link rel="preload" href="fonts/Oswald-300-46.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/CormorantGaramond-400i-2.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Manrope-400-18.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Montserrat-800-44.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Montserrat-700-39.woff2" as="font" type="font/woff2" crossorigin>
 <script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js"};</script>
 <script src="./support.js"></script>
 </head>
@@ -127,8 +132,6 @@ input::placeholder{color:rgba(243,238,230,.4)}
   <span ref="{{ topRef }}" aria-hidden="true" style="position:absolute;top:0;left:0;width:1px;height:64px;pointer-events:none"></span>
   <div ref="{{ heroMediaRef }}" style="position:absolute;inset:0;will-change:transform;animation:{{ heroMediaAnim }}">
   <sc-if value="{{ heroB }}" hint-placeholder-val="{{ true }}"><img src="assets/v5/hero-b.jpg" srcSet="assets/v5/hero-b-m.jpg 1200w, assets/v5/hero-b.jpg 2400w" sizes="100vw" fetchPriority="high" decoding="async" alt="Гонг-медитация в звуковом зале BIONIX YOGA LAB: группа на подушках, мастер у гонгов" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ heroPos }};transform-origin:center 30%;animation:{{ heroAnim }}"></sc-if>
-  <sc-if value="{{ heroA }}" hint-placeholder-val="{{ false }}"><img src="assets/v5/hero-a.jpg" srcSet="assets/v5/hero-a-m.jpg 1200w, assets/v5/hero-a.jpg 2400w" sizes="100vw" fetchPriority="high" decoding="async" alt="Гонг-медитация в звуковом зале BIONIX YOGA LAB: мастер у гонга, группа в полукруге" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;transform-origin:center 30%;animation:{{ heroAnim }}"></sc-if>
-  <sc-if value="{{ heroDawn }}" hint-placeholder-val="{{ false }}"><img src="assets/v5/hero.jpg" srcSet="assets/v5/hero-m.jpg 1200w, assets/v5/hero.jpg 2400w" sizes="100vw" fetchPriority="high" decoding="async" alt="Зал BIONIX YOGA LAB на рассвете: мягкий свет, практикующая в медитации" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;transform-origin:center;animation:{{ heroAnim }}"></sc-if>
   <sc-if value="{{ heroLive }}" hint-placeholder-val="{{ false }}"><div ref="{{ heroVideoRef }}" aria-hidden="true" style="position:absolute;inset:0;transition:opacity 1.8s ease;opacity:{{ heroVideoO }}"></div></sc-if>
   </div>
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,15,.5) 0%,rgba(20,18,15,.22) 34%,rgba(20,18,15,.55) 66%,rgba(20,18,15,.94) 100%)"></div>
@@ -172,7 +175,6 @@ input::placeholder{color:rgba(243,238,230,.4)}
       <div aria-hidden="true" style="position:absolute;inset:-6% -4% 2% 2%;border-radius:40px;background:radial-gradient(closest-side,rgba(214,140,70,.55),rgba(210,180,140,.28) 55%,rgba(237,230,219,0));filter:blur(36px);animation:{{ haloAnim }}"></div>
       <div data-pxf data-reveal="clip" style="position:relative;width:100%;aspect-ratio:16/11;min-height:200px;overflow:hidden;border-radius:4px;background:#2A2621;box-shadow:0 30px 70px -30px rgba(122,95,62,.55)">
         <sc-if value="{{ openingEve }}" hint-placeholder-val="{{ true }}"><img ref="{{ imgIn }}" data-px=".08" src="assets/v5/opening.jpg" srcSet="assets/v5/opening-m.jpg 960w, assets/v5/opening.jpg 1920w" sizes="(max-width: 1023px) 100vw, 45vw" loading="lazy" decoding="async" alt="Открытие звукового зала BIONIX YOGA LAB: гости на подушках, мастер у гонга, свечи вдоль сцены" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 1.2s ease"></sc-if>
-        <sc-if value="{{ openingDay }}" hint-placeholder-val="{{ false }}"><img ref="{{ imgIn }}" data-px=".08" src="assets/v5/opening-b.jpg" srcSet="assets/v5/opening-b-m.jpg 960w, assets/v5/opening-b.jpg 1920w" sizes="(max-width: 1023px) 100vw, 45vw" loading="lazy" decoding="async" alt="Открытие звукового зала BIONIX YOGA LAB: презентация пространства гостям" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 1.2s ease"></sc-if>
       </div>
       <div data-reveal data-delay="320" role="img" aria-label="Скидка 50% на открытие" style="position:absolute;left:0;bottom:0;width:clamp(164px,16.5vw,248px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#2A2621 0 84%,#0F0E0C 91%,#2E2A24 97%,#1C1A17 100%);box-shadow:0 22px 44px -14px rgba(28,26,23,.65),inset 0 2px 3px rgba(243,238,230,.12);display:flex;align-items:center;justify-content:center">
         <div aria-hidden="true" style="position:absolute;inset:8%;border-radius:50%;background:repeating-radial-gradient(circle,rgba(255,240,210,0) 0 2px,rgba(90,60,25,.09) 2px 3px),radial-gradient(circle at 36% 30%,#F3DDAE 0%,#D9B97F 26%,#B88D52 60%,#8A6435 100%);box-shadow:inset 0 0 0 1px rgba(255,235,200,.35),inset 0 -12px 26px rgba(60,38,15,.45),inset 0 8px 18px rgba(255,240,210,.35)"></div>
@@ -315,7 +317,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
             <sc-if value="{{ p.img }}" hint-placeholder-val="{{ false }}"><img ref="{{ imgIn }}" src="{{ p.img }}" srcSet="{{ p.srcset }}" sizes="(max-width: 1023px) 80vw, 40vw" loading="lazy" decoding="async" alt="{{ p.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease"></sc-if>
             <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,15,.42) 0%,rgba(20,18,15,.06) 32%,rgba(20,18,15,.9) 100%)"></div>
             <div style="position:absolute;inset:0;padding:22px;display:flex;flex-direction:column;justify-content:space-between">
-              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font-family:Oswald;font-size:13px;letter-spacing:.2em;color:#D2B48C">{{ p.n }}</span><sc-if value="{{ p.first }}" hint-placeholder-val="{{ false }}"><span style="padding:6px 12px;border-radius:999px;border:1px solid rgba(210,180,140,.7);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#D2B48C">для первого раза</span></sc-if></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font-family:Oswald;font-size:13px;letter-spacing:.2em;color:#D2B48C">{{ p.n }}</span><sc-if value="{{ p.first }}" hint-placeholder-val="{{ false }}"><span style="padding:6px 12px;border-radius:999px;border:1px solid rgba(210,180,140,.7);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#D2B48C">для первого раза</span></sc-if></div>
               <div style="display:flex;flex-direction:column;gap:10px">
                 <span style="font-family:'Cormorant Garamond';font-style:italic;font-size:22px;line-height:1;color:#D2B48C">{{ p.mood }}</span>
                 <span style="font-family:Oswald;font-weight:300;font-size:30px;line-height:1;text-transform:uppercase">{{ p.title }}</span>
@@ -488,11 +490,11 @@ input::placeholder{color:rgba(243,238,230,.4)}
           <div style="display:flex;flex-direction:column;gap:14px;padding-top:18px;border-top:1px solid rgba(243,238,230,.14)">
             <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;font-size:13px;line-height:1.55;color:#E7DCCB">
               <input type="checkbox" checked="{{ agree }}" onChange="{{ toggleAgree }}" required style="flex:none;width:18px;height:18px;margin:2px 0 0;accent-color:#D2B48C;cursor:pointer">
-              <span>Я ознакомлен(а) с <button type="button" onClick="{{ openPolicy }}" style="padding:0;border:none;background:none;color:#D2B48C;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Политикой обработки персональных данных</button> и даю <button type="button" onClick="{{ openConsent }}" style="padding:0;border:none;background:none;color:#D2B48C;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer">согласие на обработку</button> моих персональных данных (имя, телефон) для записи на занятие и обратной связи.</span>
+              <span>Я ознакомлен(а) с <button type="button" onClick="{{ openPolicy }}" style="padding:8px 0;margin:-8px 0;border:none;background:none;color:#D2B48C;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Политикой обработки персональных данных</button> и даю <button type="button" onClick="{{ openConsent }}" style="padding:8px 0;margin:-8px 0;border:none;background:none;color:#D2B48C;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer">согласие на обработку</button> моих персональных данных (имя, телефон) для записи на занятие и обратной связи.</span>
             </label>
             <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;font-size:13px;line-height:1.55;color:#B5AA9A">
               <input type="checkbox" checked="{{ promo }}" onChange="{{ togglePromo }}" style="flex:none;width:18px;height:18px;margin:2px 0 0;accent-color:#D2B48C;cursor:pointer">
-              <span>Хочу получать новости, расписание и предложения центра — <button type="button" onClick="{{ openAds }}" style="padding:0;border:none;background:none;color:#D2B48C;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer">согласие на рассылку</button>. Необязательно, можно отозвать в любой момент.</span>
+              <span>Хочу получать новости, расписание и предложения центра — <button type="button" onClick="{{ openAds }}" style="padding:8px 0;margin:-8px 0;border:none;background:none;color:#D2B48C;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer">согласие на рассылку</button>. Необязательно, можно отозвать в любой момент.</span>
             </label>
           </div>
           <sc-if value="{{ canSubmit }}" hint-placeholder-val="{{ false }}">
@@ -565,11 +567,11 @@ input::placeholder{color:rgba(243,238,230,.4)}
       </div>
       <div style="display:flex;flex-direction:column;gap:4px;font-size:13px;letter-spacing:.1em;text-transform:uppercase">
         <span style="font-size:11px;letter-spacing:.2em;color:#B5AA9A;margin-bottom:6px">Разделы</span>
-        <a href="#practices" style="color:#F3EEE6;display:inline-block;padding:5px 0" style-hover="color:#D2B48C">Практики</a>
-        <a href="#space" style="color:#F3EEE6;display:inline-block;padding:5px 0" style-hover="color:#D2B48C">Пространство</a>
-        <a href="#schedule" style="color:#F3EEE6;display:inline-block;padding:5px 0" style-hover="color:#D2B48C">Расписание</a>
-        <a href="#masters" style="color:#F3EEE6;display:inline-block;padding:5px 0" style-hover="color:#D2B48C">Мастера</a>
-        <a href="#prices" style="color:#F3EEE6;display:inline-block;padding:5px 0" style-hover="color:#D2B48C">Карты</a>
+        <a href="#practices" style="color:#F3EEE6;display:inline-block;padding:10px 0" style-hover="color:#D2B48C">Практики</a>
+        <a href="#space" style="color:#F3EEE6;display:inline-block;padding:10px 0" style-hover="color:#D2B48C">Пространство</a>
+        <a href="#schedule" style="color:#F3EEE6;display:inline-block;padding:10px 0" style-hover="color:#D2B48C">Расписание</a>
+        <a href="#masters" style="color:#F3EEE6;display:inline-block;padding:10px 0" style-hover="color:#D2B48C">Мастера</a>
+        <a href="#prices" style="color:#F3EEE6;display:inline-block;padding:10px 0" style-hover="color:#D2B48C">Карты</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;line-height:1.5">
         <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#B5AA9A;margin-bottom:6px">Контакты</span>
@@ -597,7 +599,7 @@ input::placeholder{color:rgba(243,238,230,.4)}
 <!-- Cookie -->
 <sc-if value="{{ showCookie }}" hint-placeholder-val="{{ false }}">
   <div role="dialog" aria-label="Cookie" style="position:fixed;left:16px;right:16px;bottom:16px;z-index:60;max-width:520px;padding:22px 24px;border-radius:4px;background:#1C1A17;color:#F3EEE6;border:1px solid rgba(243,238,230,.12);box-shadow:0 24px 60px rgba(20,18,15,.35);display:flex;flex-direction:column;gap:16px;animation:v6FadeUp .9s cubic-bezier(.16,1,.3,1) .4s both">
-    <p style="margin:0;font-size:14px;line-height:1.55;color:#E7DCCB">Мы используем cookie, чтобы сайт работал, и обезличенную аналитику — только с вашего согласия. Подробнее в <button type="button" onClick="{{ openCookies }}" style="padding:0;border:none;background:none;color:#D2B48C;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Политике cookie</button>.</p>
+    <p style="margin:0;font-size:14px;line-height:1.55;color:#E7DCCB">Мы используем cookie, чтобы сайт работал, и обезличенную аналитику — только с вашего согласия. Подробнее в <button type="button" onClick="{{ openCookies }}" style="padding:8px 0;margin:-8px 0;border:none;background:none;color:#D2B48C;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Политике cookie</button>.</p>
     <div style="display:flex;flex-wrap:wrap;gap:8px">
       <button type="button" onClick="{{ acceptAll }}" style="height:44px;padding:0 20px;border-radius:999px;border:none;background:#D2B48C;color:#1C1A17;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer" style-hover="background:#F3EEE6">Принять</button>
       <button type="button" onClick="{{ onlyNecessary }}" style="height:44px;padding:0 20px;border-radius:999px;border:1px solid rgba(243,238,230,.35);background:transparent;color:#F3EEE6;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#F3EEE6">Только необходимые</button>
@@ -897,7 +899,7 @@ class Component extends DCLogic {
       ['Медитации в воде', 'Все уровни', 'Флоатинг на специальных плотах, элементы Watsu и гидро-саунд сессии. Есть только у нас.', 'текучесть', true, 'water'],
       ['Гонг-медитации', 'Все уровни', 'Звуковая терапия с планетарными гонгами, поющими чашами и этническими инструментами.', 'резонанс', true, 'gong'],
     ];
-    const practices = PR.map((p, i) => { const on = (s.pv || 0) === i; return { n: pad(i + 1), title: p[0], level: p[1], text: p[2], mood: p[3], first: p[4], firstTag: p[4] ? ' · для первого раза' : '', img: `assets/v5/prac-${p[5]}.jpg`, srcset: srcset(`assets/v5/prac-${p[5]}.jpg`, 700, 1400),
+    const practices = PR.map((p, i) => { const on = (s.pv || 0) === i; return { n: pad(i + 1), title: p[0], level: p[1], text: p[2], mood: p[3], first: p[4], firstTag: p[4] ? ' · для первого раза' : '', img: p[5] === 'hatha' ? 'assets/v5/hall-tall.jpg' : `assets/v5/prac-${p[5]}.jpg`, srcset: p[5] === 'hatha' ? srcset('assets/v5/hall-tall.jpg', 540, 880) : srcset(`assets/v5/prac-${p[5]}.jpg`, 700, 1400),
       flex: on ? '3.4 1 0%' : '1 1 0%', imgT: on ? 'scale(1)' : 'scale(1.1)', dimO: on ? 0 : .5, colO: on ? 0 : 1, expO: on ? 1 : 0, expT: on ? 'translateY(0)' : 'translateY(18px)', expPe: on ? 'auto' : 'none',
       enter: () => { if (this.state.pv !== i) this.setState({ pv: i }); }, book: () => this.setState({ pick: CHIP[i] }) }; });
     const pillars = [
@@ -921,7 +923,7 @@ class Component extends DCLogic {
       ['ZEN Lounge', 'пауза', 'Чайная зона с низкими подиумами, мягким светом, живой зеленью и сценой для музыкантов.', 'zen', 'чай · живая музыка'],
     ];
     const zi = s.zone % 4;
-    const zones = ZN.map((z, k) => { const on = k === zi; return { n: pad(k + 1), name: z[0], mood: z[1], text: z[2], img: `assets/v5/zone-${z[3]}.jpg`, srcset: z[3] === 'sound' ? srcset('assets/v5/zone-sound.jpg', 1000, 2000) : `assets/v5/zone-${z[3]}.jpg 1024w`, on: on ? 1 : 0, color: on ? '#F3EEE6' : '#7F7568', numColor: on ? '#D2B48C' : '#6B6258', scale: on && motion ? 'scale(1.06)' : 'scale(1)', bar: on && motion ? `v6Fill${par(s.zTick)} 7s linear both ${s.zoneHold ? 'paused' : 'running'}` : 'none', pick: () => { if (this.state.zone !== k) { this.setState(st => ({ zone: k, zTick: st.zTick + 1 })); this.scheduleZone(); } } }; });
+    const zones = ZN.map((z, k) => { const on = k === zi; return { n: pad(k + 1), name: z[0], mood: z[1], text: z[2], img: z[3] === 'yoga' ? 'assets/v5/hall-wide.jpg' : `assets/v5/zone-${z[3]}.jpg`, srcset: z[3] === 'yoga' ? srcset('assets/v5/hall-wide.jpg', 800, 1280) : z[3] === 'sound' ? srcset('assets/v5/zone-sound.jpg', 1000, 2000) : `assets/v5/zone-${z[3]}.jpg 1024w`, on: on ? 1 : 0, color: on ? '#F3EEE6' : '#7F7568', numColor: on ? '#D2B48C' : '#6B6258', scale: on && motion ? 'scale(1.06)' : 'scale(1)', bar: on && motion ? `v6Fill${par(s.zTick)} 7s linear both ${s.zoneHold ? 'paused' : 'running'}` : 'none', pick: () => { if (this.state.zone !== k) { this.setState(st => ({ zone: k, zTick: st.zTick + 1 })); this.scheduleZone(); } } }; });
     const dayLabels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'], dayNames = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
     const classes = this.dayClasses(s.day).map((c, i) => ({ time: c[0], name: c[1], teacher: c[2], dur: c[3], level: c[4], first: c[6], spots: `${c[5] <= 2 ? 'Осталось' : 'Свободно'} ${c[5]} ${plural(c[5], ['место', 'места', 'мест'])}`, anim: motion && s.scTick > 0 ? `v6Row${par(s.scTick)} .8s ${E} ${i * 60}ms both` : 'none', book: () => this.setState({ pick: c[7] }) }));
     const masters = [
